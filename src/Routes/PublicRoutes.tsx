@@ -5,6 +5,7 @@ import { CustomRouter } from './RootRoutes';
 import SignUp from '../Views/signup/SignUp';
 import Login from '../Views/login/Login';
 import Forgot from '../Views/forgotpassword/Forgot';
+import VerifyEmail from '../Views/signup/VerifyEmail';
 
 export const PUBLIC_ROUTES: Array<CustomRouter> = [
   {
@@ -21,6 +22,11 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     path: ROUTES_CONFIG.SIGNUP.path,
     title: ROUTES_CONFIG.SIGNUP.title,
     element: <SignUp />,
+  },
+  {
+   path:ROUTES_CONFIG.VERIFY.path,
+   title:ROUTES_CONFIG.VERIFY.title,
+   element:<VerifyEmail/>
   },
   {
     path: ROUTES_CONFIG.FORGOT.path,

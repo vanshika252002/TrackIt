@@ -131,3 +131,27 @@ body,
   transition: 60s ease !important;
   transform-origin: center center;
 }
+
+
+
+
+
+.popup1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+.popup1 h2{
+  
+
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: 450px 0;
+  }
+}

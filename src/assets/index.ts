@@ -28,7 +28,9 @@ import flightbyroute1 from './icons/flightbyroute1.svg';
 import s from './icons/s.svg';
 import powerbtn from './icons/powerbtn.png';
 import searching from './icons/searching.png';
+import cloudy from './icons/cloudy.png';
 export const ICONS = {
+  cloudy,
   powerbtn,
   searching,
   s,

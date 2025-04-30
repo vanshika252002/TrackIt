@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import './signup.css';
 const SignUp: React.FC = () => {
   const { handleGoogleSignIn } = useSignUp();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); 
 
   return (
     <div className="signup-wrapper-component">
@@ -48,16 +49,20 @@ const SignUp: React.FC = () => {
                 }}
               />
 
+             
               <FormInput
-                name={DATA.Password}
-                type="password"
-                label="Password"
-                value={values.password}
-                onChange={(e) => {
-                  const noStartingSpaces = e.target.value.replace(/^\s+/, '');
-                  setFieldValue('password', noStartingSpaces);
-                }}
-              />
+              name={DATA.Password}
+              type="password"
+              label="Password"
+              value={values.password}
+              onChange={(e) => {
+                const noStartingSpaces = e.target.value.replace(/^\s+/, '');
+                setFieldValue('password', noStartingSpaces);
+              }}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              enableToggle={true} 
+            />
 
               <FormInput
                 name={DATA.ConfirmPassword}

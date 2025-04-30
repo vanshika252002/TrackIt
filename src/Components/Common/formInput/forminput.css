@@ -1,6 +1,26 @@
 .label-with-aestrick{
- display: flex;
- align-items:center;
- justify-content:start ;
- gap:1%;
-}
+    display: flex;
+    align-items:center;
+    justify-content:start ;
+    gap:1%;
+   }
+   .input-wrapper {
+       position: relative;
+       width: 100%;
+     }
+     
+     .form-input {
+       width: 100%;
+       padding: 8px 36px 8px 10px; /* leave space for the icon */
+       box-sizing: border-box;
+     }
+     
+     .eye-toggle-icon {
+       position: absolute;
+       right: 20px;
+       top: 50%;
+       transform: translateY(-50%);
+       cursor: pointer;
+       color: #888;
+     }
+     

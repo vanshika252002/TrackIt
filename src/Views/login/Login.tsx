@@ -1,12 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../../Shared/Constants';
 import { Button, FormInput } from '../../Components/Common';
-import { validationSchema, onSubmit } from '../../Shared/login';  // Import onSubmit and validationSchema
-import { initialValues } from '../../Shared/login'; // Import initialValues from the shared file
+import { validationSchema, onSubmit } from '../../Shared/login';
+import { initialValues } from '../../Shared/login';
 import useLogin from './hooks/useLogin';
 import { DATA } from '../index';
 
@@ -15,6 +16,7 @@ import './login.css';
 
 const Login: React.FC = () => {
   const { handleGoogleLogin } = useLogin();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Login: React.FC = () => {
       </div>
       <div className="signup-container">
         <Formik
-          initialValues={initialValues}  // Use the imported initialValues here
+          initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, formikHelpers) =>
             onSubmit(values, formikHelpers, dispatch)
@@ -46,16 +48,19 @@ const Login: React.FC = () => {
                 }}
               />
 
-              <FormInput
-                type={DATA.Password}
-                name={DATA.Password}
-                label="Password"
-                value={values.password}
-                onChange={(e) => {
-                  const noStartingSpaces = e.target.value.replace(/^\s+/, '');
-                  setFieldValue('password', noStartingSpaces);
-                }}
-              />
+<FormInput
+  type="password"
+  name={DATA.Password}
+  label="Password"
+  value={values.password}
+  onChange={(e) => {
+    const noStartingSpaces = e.target.value.replace(/^\s+/, '');
+    setFieldValue('password', noStartingSpaces);
+  }}
+  showPassword={showPassword}
+  setShowPassword={setShowPassword}
+  enableToggle={true} 
+/>
 
               <div className="remember-me-container">
                 <input
@@ -68,9 +73,8 @@ const Login: React.FC = () => {
                     setFieldValue('rememberMe', e.target.checked);
                   }}
                 />
-                <label className='remember-me-label' htmlFor={"remeberMe"}>
-                Remember Me
-                  
+                <label className="remember-me-label" htmlFor={'remeberMe'}>
+                  Remember Me
                 </label>
               </div>
 

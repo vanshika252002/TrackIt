@@ -30,7 +30,7 @@ import CustomZoom from '../../../Views/customZoom/CustomZoom';
 import Earthquake from '../../../Views/earthquake/Earthquake';
 
 import { useLazyGetGeolocationByLatLngQuery } from '../../../Services/Api/geolocation';
-import { EarthquakeFeature, Props, Details } from './Types/Types';
+import { EarthquakeFeature, Props, Details,WeatherData,GeolocationData } from './Types/Types';
 import Loading from '../../../Views/loading';
 
 const createFlightIcon = (fillColor: string, size = 38) =>
@@ -85,9 +85,14 @@ const Body = ({
     [number, number, string, number] | null
   >(null);
 
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [geo, setGeo] = useState<GeolocationData | null>(null);
+  
+const [popupLoading, setPopupLoading] = useState(false);
+
   const [triggerWeather, { data: weatherData }] =
     useLazyGetWeatherByCoordsQuery();
-  const [triggerGeolocation, { data: geolocation }] =
+  const [triggerGeolocation] =
     useLazyGetGeolocationByLatLngQuery();
 
   const { data: liveflight, isLoading: loadingFlights } = useGetAllFlightsQuery(
@@ -120,24 +125,40 @@ const Body = ({
   const MapClickHandler = () => {
     useMapEvents({
       click(e) {
-        const newLat = e.latlng.lat;
-        const newLon = e.latlng.lng;
-        setClickedLocation([newLat, newLon]);
-        triggerWeather({ lat: newLat, lon: newLon });
-        triggerGeolocation({ lat: newLat, lng: newLon });
-        setSelectedLocation(null); //flight
+        setClickedLocation([e.latlng.lat, e.latlng.lng]);
       },
+     
     });
     return null;
   };
   useEffect(() => {
     if (clickedLocation) {
       const [lat, lon] = clickedLocation;
-      triggerWeather({ lat, lon });
-      triggerGeolocation({ lat, lng: lon });
+  
+      setWeather(null);
+      setGeo(null);
+      setPopupLoading(true);
+  
+      
+      triggerWeather({ lat, lon })
+        .unwrap()
+        .then((res) => {
+          setWeather(res);
+        })
+        .catch(console.error);
+  
+      triggerGeolocation({ lat, lng: lon })
+        .unwrap()
+        .then((res) => {
+          setGeo(res);
+        })
+        .catch(console.error)
+        .finally(() => {
+          setPopupLoading(false);
+        });
     }
   }, [clickedLocation]);
-
+  
   useEffect(() => {
     if (selectedLocation && FlightDetails) {
       const updated = FlightDetails.find(
@@ -158,13 +179,9 @@ const Body = ({
     }
   }, [FlightDetails]);
 
-  // useEffect(() => {
-  //   if (earthquakeData?.length > 0) {
-  //     setClickedLocationEarthquake(null);
-  //   }
-  // }, [earthquakeData]);
+  
 
-  console.log(loadingMap);
+  console.log('data', clickedLocation, 'selectred', weatherData);
   return (
     <div className="linear-gradient-body">
       <MapContainer
@@ -315,45 +332,40 @@ const Body = ({
         {/* {fly && flyToTarget && <FlyToTarget flyToTarget={flyToTarget} />}  */}
 
         {clickedLocation && (
-          <Popup position={clickedLocation}>
-            <div>
-              {weatherData && (
-                <div className="popup">
-                  {geolocation?.results[0]?.annotations?.flag &&
-                  geolocation?.results[0]?.components?.state ? (
-                    <h2>
-                      {geolocation?.results[0]?.annotations?.flag}{' '}
-                      {geolocation?.results[0]?.components?.state}
-                    </h2>
-                  ) : (
-                    <h2>{geolocation?.results[0]?.formatted} </h2>
-                  )}
+  <Popup position={clickedLocation}>
+    <div>
+      {popupLoading ? (
+        <div className="popup1">
+           <h2>Loading..</h2>
+           <br/>
+           <span></span>
+           <span></span>
+           <span></span>
+          </div>
+      ) : weather && geo ? (
+        <div className="popup">
+          {geo?.results[0]?.annotations?.flag &&
+          geo?.results[0]?.components?.state ? (
+            <h2>
+              {geo?.results[0]?.annotations?.flag}{' '}
+              {geo?.results[0]?.components?.state}
+            </h2>
+          ) : (
+            <h2>{geo?.results[0]?.formatted} </h2>
+          )}
+          <br />
+          <span><strong>Weather:</strong> {weather.weather[0].description}</span><br />
+          <span><strong>Temperature:</strong> {weather.main.temp}°C</span><br />
+          <span><strong>Humidity:</strong> {weather.main.humidity}%</span><br />
+          <span><strong>Wind Speed:</strong> {weather.wind.speed}</span><br />
+        </div>
+      ) : (
+        <span>No data available.</span>
+      )}
+    </div>
+  </Popup>
+)}
 
-                  <br />
-
-                  <span>
-                    {' '}
-                    <strong>Weather:</strong>{' '}
-                    {weatherData.weather[0].description}
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Temperature:</strong> {weatherData.main.temp}°C
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Humidity:</strong> {weatherData.main.humidity}%
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Wind Speed:</strong> {weatherData.wind.speed}
-                  </span>
-                  <br />
-                </div>
-              )}
-            </div>
-          </Popup>
-        )}
         <MiniMapControl />
       </MapContainer>
 

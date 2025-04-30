@@ -19,6 +19,7 @@ export default function Dashboard() {
 
   const [flight, setFlight] = useState<boolean>(true);
   const [alert, setAlert] = useState<boolean>(false);
+  
   const [visible, setVisible] = useState<string>('');
 
   const [flyToTarget, setFlyToTarget] = useState<[number, number] | null>(null);

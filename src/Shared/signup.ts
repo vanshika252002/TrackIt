@@ -25,7 +25,7 @@ export const validationSchema = Yup.object({
     'Enter a valid email address'
   ),
   password: Yup.string()
-  .required("Required")
+  .required("Password is required")
   .matches(/^\S*$/, "Password cannot contain spaces")
   .min(6, "Password must have at least 6 characters")
   .max(10, 'Password cannot be more than 10 characters')
@@ -58,7 +58,7 @@ export const handleSignUpSubmit = async (
     toast.success('Signup successful. Please verify your email !', {
       position: 'top-right',
     });
-    navigate('/login');
+    navigate('/verify-email');
   } catch (error: any) {
     console.error(error);
     if (error.code === 'auth/email-already-in-use') {

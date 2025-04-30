@@ -37,6 +37,7 @@
     "leaflet.marker.slideto": "^0.3.0",
     "leaflet.markercluster": "^1.5.3",
     "leaflet.smooth_marker_bouncing": "^3.1.1",
+    "lucide-react": "^0.503.0",
     "path-to-regexp": "^6.2.1",
     "react": "^18.2.0",
     "react-datepicker": "^8.3.0",

@@ -54,3 +54,24 @@ export type Details = [
   number,
   number,
 ];
+export type WeatherData = {
+  weather: { description: string }[];
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  wind: {
+    speed: number;
+  };
+};
+export type GeolocationData = {
+  results: {
+    formatted?: string;
+    components?: {
+      state?: string;
+    };
+    annotations?: {
+      flag?: string;
+    };
+  }[];
+};
