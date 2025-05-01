@@ -71,7 +71,7 @@ const Live = ({ setVisible,setFlight,setSelectedLocation ,setFly,setFlyToTarget,
         <div className="near-by-f1" ><button onClick={()=> {setVisible(''); setClickedLocation(null),setSelectedLocation(null);setFlight(false);}}>x</button></div>
       </div>
 
-      {LiveFlights?.states == null && <div className="fi-no-results"> Data is not Available right now </div>}
+      {LiveFlights?.states == null && <div className="near-by-lit-wrappers"><p>Data is not Available right now </p></div>}
 
       {LiveFlights?.states != null && (
         <div className='f12'>

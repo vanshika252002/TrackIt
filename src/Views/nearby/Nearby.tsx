@@ -134,7 +134,9 @@ const Nearby = ({
       )}
       {!flightLoading && nearbyFlights.length === 0 && lat && lon && (
         <div className="near-by-lit-wrapper">
-          <p>No nearby flights found within 500 km.</p>
+       
+       <p>No nearby flights found within 500 km.</p>
+        
         </div>
       )}
       {nearbyFlights.length > 0 && (

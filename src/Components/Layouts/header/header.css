@@ -83,6 +83,7 @@
    background-color: transparent;
 }
 .h4 button{
+    cursor: pointer;
     height:auto;
     width:auto;
     background-color:rgb(248, 192, 35) ;

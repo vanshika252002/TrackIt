@@ -1,26 +1,45 @@
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider,sendEmailVerification,signOut } from 'firebase/auth';
 import { auth } from '../../../Components/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateAuthTokenRedux } from '../../../Store/Common';
+import {doc,setDoc,getDoc} from 'firebase/firestore';
+import { db } from '../../../Components/firebase';
+import { toast } from 'react-toastify';
 
 const provider = new GoogleAuthProvider();
 
 const useSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-
-
-
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const token = await result.user.getIdToken();
-      dispatch(updateAuthTokenRedux({ token }));
-      console.log('Google sign-in successful:', result.user);
-      navigate('/home');
-    } catch (error) {
+      const {user}=result;
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+    
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          email: user.email,
+          name: user.displayName,
+          createdAt: new Date(),
+        });
+      }
+
+      if (!user.emailVerified) {
+        await sendEmailVerification(user);
+        await signOut(auth);
+        toast.success("Google signup successful! Please verify your email.");
+        navigate('/login');
+      } else {
+        const token = await user.getIdToken();
+        dispatch(updateAuthTokenRedux({ token }));
+  
+        toast.success("Google signup successful!");
+        navigate('/home');
+      }
+    }  catch (error) {
       console.error('Google sign-in error:', error);
     }
   };

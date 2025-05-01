@@ -138,6 +138,6 @@ gap:10%}
     .flightInformation-wrapper {
       right:10%;
       width: 250px;
-      height:400px;
+      height:auto;
     }
    }

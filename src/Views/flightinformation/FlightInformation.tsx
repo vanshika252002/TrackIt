@@ -45,7 +45,7 @@ const FlightInformation = ({origin, setVisible ,setFlight,setSelectedLocation,se
       {liveflight?.states!=null &&  filteredFlights.length === 0 && !isLoading && (
         <div className="fi-no-results">No flights found for the specified origin.</div>
       )}
-      {liveflight?.states==null &&  <div className="fi-no-results"> Data is not Available right now  </div>}
+      {liveflight?.states==null &&  <div className="near-by-lit-wrappers"><p>Data is not Available right now </p></div>}
       {filteredFlights.length > 0 && (
         <div className="fd">
            <div className='flight-place'><img src={ICONS.flightbyroute}/><span>{origin.charAt(0).toUpperCase()+origin.slice(1).toLowerCase()}</span> </div>

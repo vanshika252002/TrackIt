@@ -46,6 +46,16 @@ export const onSubmit = async (
       values.email,
       values.password
     );
+    const user = userCredential.user;
+
+    if (!user.emailVerified) {
+      toast.error('Email not verified. Please check your inbox.', {
+        position: 'top-right',
+      });
+      
+      await auth.signOut();
+      return;
+    }
     const token = await userCredential.user.getIdToken();
     dispatch(updateAuthTokenRedux({ token }));
     toast.success('Login successful! Welcome', { position: 'top-right' });

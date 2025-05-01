@@ -51,7 +51,7 @@ const AirportCountryFlights = ({
       </div>
 
       {flightData?.states == null && (
-        <div className="fi-no-results"> Data is not Available right now </div>
+        <div className="near-by-lit-wrappers"><p>Data is not Available right now </p> </div>
       )}
       {!isLoading && filteredFlights?.length === 0 && (
         <div className="no-flights-found">

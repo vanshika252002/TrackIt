@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import {  toast } from 'react-toastify';
-
-import { forgotPassword } from './Utils/forgot';
+import { collection,query,where,getDocs } from 'firebase/firestore';
+import { db } from '../../Components/firebase';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../Components/firebase';
+// import { forgotPassword } from './Utils/forgot';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '../../Components/Common';
@@ -19,15 +22,28 @@ function Forgot() {
     }
   
     try {
-      await forgotPassword(email);
-      toast.success("Password reset link sent!");
-      navigate('/login')
-    } catch (error) {
-      console.error("Forgot Password Error:", error);
-      toast.error("Failed to send reset link. Please try again.");
-    }
+       const usersRef = collection(db, 'users');
+       const q = query(usersRef, where('email', '==',email));
+       const querySnapshot = await getDocs(q);
+       if(querySnapshot.empty)
+       {
+         toast.error("Email does not exist");
+         return ;
+       }
+       const data = await sendPasswordResetEmail(auth, email.toLowerCase());
+       console.log('data of the sendpassword email is', data);
+       toast.success('password reset link sent to your email');
+     } catch (error: any) {
+       if (error.code === 'auth/user-not-found') {
+         toast.error('no account found with this email', {
+           position: 'top-right',
+         });
+       }
+       console.log(error);
+     }
   };
   
+  console.log("ew")
   
   return (
     <div className="forgot-page-wrapper">

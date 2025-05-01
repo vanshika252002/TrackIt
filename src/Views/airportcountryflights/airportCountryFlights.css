@@ -12,7 +12,18 @@
   box-shadow: 5px 5px 10px black;
   z-index: 999;
 }
+.near-by-lit-wrappers p{
+  background-color: white;
+  margin-left:10px;
+  margin-right:10px;
+  padding:10px;
+  text-align: center;
+  border-radius: 8px;
+  border:2px solid rgba(243, 18, 18, 0.968);
+  font-weight: 600;
 
+
+}
 .country-flight-header {
   width: 100%;
   height: 3rem;

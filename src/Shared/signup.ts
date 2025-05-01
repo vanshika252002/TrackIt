@@ -1,13 +1,14 @@
 import * as Yup from 'yup';
-
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
+  sendEmailVerification
 } from 'firebase/auth';
 import { FormikHelpers } from 'formik';
+import {doc,setDoc} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { auth } from '../Components/firebase';
+
+import {auth,db} from '../Components/firebase';
 import { DATA } from '../Views';
 
 interface SignUpFormValues {
@@ -55,6 +56,15 @@ export const handleSignUpSubmit = async (
     );
     const { user } = userCredential;
     await sendEmailVerification(user);
+
+    await setDoc(doc(db, "users", user.uid), {
+        email: values.email,
+
+      });
+
+
+
+
     toast.success('Signup successful. Please verify your email !', {
       position: 'top-right',
     });

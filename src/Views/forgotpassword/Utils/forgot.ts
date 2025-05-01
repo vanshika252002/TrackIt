@@ -3,6 +3,7 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 export const forgotPassword = async (email: string) => {
   const auth = getAuth();
   try {
+    
     await sendPasswordResetEmail(auth, email);
     return { success: true };
   } catch (error: any) {
