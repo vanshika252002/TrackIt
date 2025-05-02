@@ -16,6 +16,7 @@ import './header.css';
 import Confirmation from '../../../Views/confirmation';
 
 const Header = ({
+  setWeatherInformation,
   clickedLocation,
   setSelectedLocation,
   setFlight,
@@ -66,7 +67,7 @@ const Header = ({
         <img src={ICONS.trackitlive} alt="Header Logo" />
       </div>
       <div className="h5">
-        <div className="refrence-to-options" >
+        <div className="refrence-to-options">
           <div
             className="h7"
             onClick={() => {
@@ -86,6 +87,7 @@ const Header = ({
               setSelectedLocation={setSelectedLocation}
               setFlight={setFlight}
               setClickedLocation={setClickedLocation}
+              setWeatherInformation={setWeatherInformation}
             />
           )}
           {visible == 'weather' && (
@@ -95,6 +97,7 @@ const Header = ({
               setClickedLocation={setClickedLocation}
               setFly={setFly}
               setFlyToTarget={setFlyToTarget}
+              setWeatherInformation={setWeatherInformation}
             />
           )}
 

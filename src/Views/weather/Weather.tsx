@@ -10,6 +10,7 @@ import { ICONS } from '../../assets';
 import './weather.css';
 
 function Weather({
+  setWeatherInformation,
   setVisible,
   setClickedLocation,
   setFly,
@@ -56,6 +57,7 @@ function Weather({
           onClick={() => {
             setVisible('searchbar');
             setClickedLocation(null);
+            setWeatherInformation(false);
           }}
         >
           {' '}
@@ -64,7 +66,17 @@ function Weather({
         <div className="w1">
           <span>Weather</span>
         </div>
-        <div className="near-by-f1" ><button onClick={()=> {setVisible('');setClickedLocation(null)}}>x</button></div>
+        <div className="near-by-f1">
+          <button
+            onClick={() => {
+              setVisible('');
+              setClickedLocation(null);
+              setWeatherInformation(false);
+            }}
+          >
+            x
+          </button>
+        </div>
       </div>
 
       <div className="w2">

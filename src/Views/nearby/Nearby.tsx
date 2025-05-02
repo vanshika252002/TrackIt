@@ -14,7 +14,7 @@ const Nearby = ({
   setFlight,
   setFly,
   setFlyToTarget,
-  setClickedLocation
+  setClickedLocation,
 }: NearbyProps) => {
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
@@ -83,8 +83,8 @@ const Nearby = ({
 
   if (errorMsg) {
     return (
-      <div className="near-by-wrappper"  >
-        <div className="near-by-header" >
+      <div className="near-by-wrappper">
+        <div className="near-by-header">
           <div className="near-by-f1">
             <button
               onClick={() => {
@@ -108,7 +108,7 @@ const Nearby = ({
     );
   }
   return (
-    <div className="near-by-wrappper"  onClick={(e) => e.stopPropagation()}>
+    <div className="near-by-wrappper" onClick={(e) => e.stopPropagation()}>
       <div className="near-by-header">
         {flightLoading && <Loading />}
         <div className="near-by-f1">
@@ -124,9 +124,20 @@ const Nearby = ({
           </button>
         </div>
         <div className="near-by-f2">
-          <span>Nearby</span>
+          <span>Nearby Flights</span>
         </div>
-        <div className="near-by-f1" ><button onClick={()=> { setClickedLocation(null);setVisible('');setFlight(false);setSelectedLocation(null)}}>x</button></div>
+        <div className="near-by-f1">
+          <button
+            onClick={() => {
+              setClickedLocation(null);
+              setVisible('');
+              setFlight(false);
+              setSelectedLocation(null);
+            }}
+          >
+            x
+          </button>
+        </div>
       </div>
 
       {liveflight?.states === null && (
@@ -134,9 +145,7 @@ const Nearby = ({
       )}
       {!flightLoading && nearbyFlights.length === 0 && lat && lon && (
         <div className="near-by-lit-wrapper">
-       
-       <p>No nearby flights found within 500 km.</p>
-        
+          <p>No nearby flights found within 500 km.</p>
         </div>
       )}
       {nearbyFlights.length > 0 && (
@@ -201,7 +210,6 @@ const Nearby = ({
                     setFlight(true);
                     setFly(true);
                     setFlyToTarget([details[6], details[5]]);
-                
                   }}
                 >
                   <img src={ICONS.showonmap} />

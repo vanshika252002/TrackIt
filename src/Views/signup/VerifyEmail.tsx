@@ -21,7 +21,7 @@ const VerifyEmail = () => {
         toast.error('Please verify your email first.');
       }
     } else {
-      toast.error('Please Sign in .');
+      toast.error('Please Sign up .');
       navigate('/signup');
     }
   };
@@ -34,6 +34,7 @@ const VerifyEmail = () => {
       <p>Please check your inbox and click the verification link.</p>
 
       <button onClick={checkEmailVerification}>Done</button>
+      <button onClick={()=>navigate('/login')}>Sign in</button>
     </div>
    </div>
   );

@@ -7,14 +7,25 @@ function SearchBar({
   setSelectedLocation,
   setFlight,
   setClickedLocation,
+  setWeatherInformation,
 }: SearchbarProps) {
   return (
     <div className="searchbar-wrapper">
       <div className="search_shortcuts">
-        <div className='search-shortcut-span'><span>SHORTCUTS TO FIND</span></div>
-        <div className='search-shortcut-btn'><button onClick={()=>{ setVisible('')}}>x</button></div>
+        <div className="search-shortcut-span">
+          <span>SHORTCUTS TO FIND</span>
+        </div>
+        <div className="search-shortcut-btn">
+          <button
+            onClick={() => {
+              setVisible('');
+            }}
+          >
+            x
+          </button>
+        </div>
       </div>
-      
+
       <div className="searchbar-options">
         <ul
           onClick={(e) => {
@@ -26,7 +37,7 @@ function SearchBar({
               console.log('weather searchbar');
               setVisible('weather');
               setSelectedLocation(null), setClickedLocation(null);
-              setFlight(false);
+              setFlight(false), setWeatherInformation(true);
             }}
           >
             <img src={ICONS.weather} />
@@ -64,7 +75,7 @@ function SearchBar({
               setClickedLocation(null);
             }}
           >
-            <img src={ICONS.nearby} /> Nearby
+            <img src={ICONS.nearby} /> Nearby Flights
           </li>
         </ul>
       </div>

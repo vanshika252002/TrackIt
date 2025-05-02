@@ -6,4 +6,16 @@ export interface Props{
     }
     
   }
+  weatherInformation:boolean,
+  setWeatherInformation:(value:boolean)=>void
+  setClickedLocation: (location: [number, number] | null) => void;
+  setSelectedLocation: (
+    location: {
+      id: string;
+      lat: number | null;
+      lon: number | null;
+      angle: number | null;
+      origin: string | null;
+    } | null
+  ) => void;
   }

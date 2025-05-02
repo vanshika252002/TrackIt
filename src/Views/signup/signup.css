@@ -62,11 +62,13 @@
 
 }
 .verification button{
-  margin-bottom:30px;
+  margin-bottom:12px;
   border-radius:5px;
   height:auto;
-  padding:5px;
+  padding:7px;
   background-color: #0071BC;
   color:white;
   font-size: 1rem;
+  width:65%;
+  border:none;
 }
