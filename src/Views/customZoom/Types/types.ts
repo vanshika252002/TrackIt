@@ -6,8 +6,10 @@ export interface Props{
     }
     
   }
+  setVisible:(value:string)=>void;
   weatherInformation:boolean,
   setWeatherInformation:(value:boolean)=>void
+  clickedLocation:[number,number]| null;
   setClickedLocation: (location: [number, number] | null) => void;
   setSelectedLocation: (
     location: {

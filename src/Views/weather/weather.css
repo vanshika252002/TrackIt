@@ -11,7 +11,20 @@
   z-index: 1000;
   box-shadow: 5px 5px 10px black;
 }
+.custom-itemselected{
+  background-color: rgb(248 192 35 / 83%);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease-in-out;
 
+  border: none;
+}
 .weather-btn {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -41,9 +54,9 @@
   margin-top: 8px;
   margin-right: 5px;
 }
-.w2 input:hover {
+/* .w2 input:hover {
   border: 2px solid rgb(248, 192, 35);
-}
+} */
 .weather-btn button {
   background-color: rgb(50, 47, 47);
   height: 100%;
@@ -105,10 +118,10 @@
   text-align: end;
 }
 
-.custom-item:hover {
+/* .custom-item:hover {
   background-color: rgb(248, 192, 35);
   outline: none;
-}
+} */
 
 .weather-details {
   margin-top: 12px;

@@ -1,9 +1,9 @@
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { collection,query,where,getDocs } from 'firebase/firestore';
-import { db } from '../Components/firebase';
+import { db,auth } from '../Components/firebase';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { auth } from '../Components/firebase';
+
 
 export const forgotPassword = async (email: string) => {
   if (!email) {

@@ -6,6 +6,8 @@ import './customZoom.css';
 import { Props } from './Types/types';
 
 const CustomZoom = ({
+  clickedLocation,
+  setVisible,
   chooseOption,
   setClickedLocation,
   setSelectedLocation,
@@ -24,7 +26,11 @@ const CustomZoom = ({
     L.DomEvent.disableClickPropagation(el);
     L.DomEvent.disableScrollPropagation(el);
   }, []);
-
+  useEffect(() => {
+    if (clickedLocation) {
+      setOpen(false);
+    }
+  }, [clickedLocation]);
   useEffect(() => {
     if (!weatherInformation) {
       setClickedLocation(null);
@@ -75,6 +81,7 @@ const CustomZoom = ({
         title="Weather"
         className={`${weatherInformation ? 'opacity-on' : 'opacity-off'}`}
         onClick={() => {
+          setVisible('');
           setWeatherInformation(!weatherInformation),
             earthquake.setAlert(false),
             console.log('GONE');
@@ -91,6 +98,7 @@ const CustomZoom = ({
               e.stopPropagation();
               console.log(open);
               setOpen(false);
+              setVisible('');
             }}
           >
             x

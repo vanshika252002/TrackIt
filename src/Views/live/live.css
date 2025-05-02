@@ -152,8 +152,21 @@ height:3rem;
 
    
   }
+  .l3open{
+    background-color: rgb(248 192 35 / 83%);
+   font-size:1rem;
+   color:white;
+    width:95%;
+    display: flex;
+    height:2.5rem;
+    justify-content:space-around;
+    align-items: center;
+   border:none;
+   border-radius: 9px;
+   margin-bottom: 5px;
+  }
   .l3{
-   background-color:rgb(50, 146, 205);
+    background-color:#0071BC;
    font-size:1rem;
    color:white;
     width:95%;
@@ -167,7 +180,7 @@ height:3rem;
   }
   .l3:hover{
    
-    background-color: rgb(248, 192, 35);
+    /* background-color: rgb(248, 192, 35); */
     outline: none;
   }
 
@@ -177,21 +190,22 @@ height:3rem;
   margin-bottom: 0;
 
 }
-  .accordion-content-l1 {
+  .accordion-content-l1selected-flight {
     background-color: #f9f9f9;
   
     border-left: 3px solid #007bff;
     animation: fadeIn 0.3s ease-in-out;
     margin: 0 10px 10px;
     border-radius: 4px;
+    background-color: rgb(248 192 35 / 83%);
   }
-  .acc-btn-l1{
+  .acc-btn-l1selected-flight{
     
     
 
     width:100%;
   }
-  .acc-btn-l1 button{
+  .acc-btn-l1selected-flight button{
     border: 0;
     border-bottom: 1px solid lightgrey;
     

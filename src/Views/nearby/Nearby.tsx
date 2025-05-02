@@ -16,6 +16,7 @@ const Nearby = ({
   setFlyToTarget,
   setClickedLocation,
 }: NearbyProps) => {
+  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -151,7 +152,12 @@ const Nearby = ({
       {nearbyFlights.length > 0 && (
         <div className="near-by-list-wrapper">
           {nearbyFlights.map(({ details, distance }: any) => (
-            <div key={details[0]} className="nearby">
+            <div
+              key={details[0]}
+              className={`nearby${
+                selectedFlightId === details[0] ? 'selected-flight' : ''
+              }`}
+            >
               <div className="n11">
                 <h2>{details[2]}</h2>
               </div>
@@ -199,17 +205,25 @@ const Nearby = ({
               <div className="acc-btn">
                 <button
                   onClick={() => {
-                    setClickedLocation(null);
-                    setSelectedLocation({
-                      lat: details[6],
-                      lon: details[5],
-                      id: details[0],
-                      angle: details[10],
-                      origin: details[2],
-                    });
-                    setFlight(true);
-                    setFly(true);
-                    setFlyToTarget([details[6], details[5]]);
+                    const isAlreadySelected = selectedFlightId === details[0];
+
+                    if (isAlreadySelected) {
+                      setSelectedFlightId(null);
+                      setSelectedLocation(null);
+                    } else {
+                      setSelectedFlightId(details[0]);
+                      setClickedLocation(null);
+                      setSelectedLocation({
+                        lat: details[6],
+                        lon: details[5],
+                        id: details[0],
+                        angle: details[10],
+                        origin: details[2],
+                      });
+                      setFlight(true);
+                      setFly(true);
+                      setFlyToTarget([details[6], details[5]]);
+                    }
                   }}
                 >
                   <img src={ICONS.showonmap} />

@@ -10,6 +10,7 @@ import { ICONS } from '../../assets';
 import './weather.css';
 
 function Weather({
+  setFlight,
   setWeatherInformation,
   setVisible,
   setClickedLocation,
@@ -20,6 +21,7 @@ function Weather({
   const [city, setCity] = useState('');
   const [locations, setLocations] = useState([]);
   const debouncedCity = useDebounce(city, 400);
+  const [selectedWeather, setSelectedWeather] = useState<any | null>(null);
   const [triggerGeolocationQuery, { data, isLoading }] =
     useLazyGetGeolocationByCoordsQuery();
   useEffect(() => {
@@ -47,6 +49,22 @@ function Weather({
   }, [clickedLocation]);
 
   console.log('location', locations);
+  const handleLocationClick = (location: any) => {
+    if (
+      selectedWeather &&
+      selectedWeather.geometry.lat === location.geometry.lat &&
+      selectedWeather.geometry.lng === location.geometry.lng
+    ) {
+      setSelectedWeather(null);
+      setClickedLocation(null);
+      setFly(false);
+    } else {
+      setSelectedWeather(location);
+      setClickedLocation([location.geometry.lat, location.geometry.lng]);
+      setFly(true);
+    }
+  };
+
   return (
     <div
       className="weather-container-wrapper"
@@ -83,7 +101,9 @@ function Weather({
         <Input
           placeholder="Enter a place"
           onChange={(e) => {
+            setFlight(false);
             setCity(e.target.value);
+            setWeatherInformation(true);
           }}
         />
       </div>
@@ -103,14 +123,8 @@ function Weather({
           {locations.map((location: any, index: number) => (
             <button
               key={index}
-              className="custom-item"
-              onClick={() => {
-                setClickedLocation([
-                  location?.geometry?.lat,
-                  location?.geometry?.lng,
-                ]),
-                  setFly(true);
-              }}
+              className={`custom-item${selectedWeather && selectedWeather.geometry.lat === location.geometry.lat && selectedWeather.geometry.lng === location.geometry.lng ? 'selected' : ''}`}
+              onClick={() => handleLocationClick(location)}
             >
               <div className="Location">
                 <strong>{location.formatted}</strong>

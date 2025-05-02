@@ -48,7 +48,9 @@ const Earthquake = ({
   const [dateError, setDateError] = useState('');
   const [isStartDateOpen, setIsStartDateOpen] = useState(false);
   const [isEndDateOpen, setIsEndDateOpen] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [selectedEarthquakeId, setSelectedEarthquakeId] = useState<
+    string | null
+  >(null);
 
   const preventScroll = (e: WheelEvent) => {
     e.preventDefault();
@@ -241,22 +243,27 @@ const Earthquake = ({
           .map((item: EarthquakeFeature) => (
             <div className="items" key={item.id}>
               <button
-                className={`${selected ? 'earthquake-click-option' : 'opacity-off'}`}
+                className={`earthquake-click-option${selectedEarthquakeId === item.id ? 'selected' : ''}`}
                 onClick={() => {
-                  // setSelectedEarthquake(item);
-                  setSelected(!selected);
-                  setFly(true);
-                  setClickedLocation(null);
-                  setFlyToTarget([
-                    item?.geometry?.coordinates[1],
-                    item?.geometry?.coordinates[0],
-                  ]);
-                  setClickedLocationEarthquake([
-                    item?.geometry?.coordinates[1],
-                    item?.geometry?.coordinates[0],
-                    item.properties.place,
-                    item.properties.mag,
-                  ]);
+                  if (selectedEarthquakeId === item.id) {
+                    setSelectedEarthquakeId(null);
+                    setClickedLocationEarthquake(null);
+                  } else {
+                    setSelectedEarthquakeId(item.id);
+
+                    setFly(true);
+                    setClickedLocation(null);
+                    setFlyToTarget([
+                      item?.geometry?.coordinates[1],
+                      item?.geometry?.coordinates[0],
+                    ]);
+                    setClickedLocationEarthquake([
+                      item?.geometry?.coordinates[1],
+                      item?.geometry?.coordinates[0],
+                      item.properties.place,
+                      item.properties.mag,
+                    ]);
+                  }
                 }}
               >
                 <div className="earthquake-magnitude">
@@ -269,7 +276,16 @@ const Earthquake = ({
                     </h4>
                   </div>
                   <div className="time-earthquake">
-                    <h5>{Timestamp(item.properties.time)}</h5>
+                    <h5>
+                      {new Date(item.properties.time).toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true,
+                      })}
+                    </h5>
                   </div>
                 </div>
               </button>

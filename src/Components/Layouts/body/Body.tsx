@@ -218,6 +218,8 @@ const Body = ({
           </div>
         )}
         <CustomZoom
+          setVisible={setVisible}
+          clickedLocation={clickedLocation}
           setClickedLocation={setClickedLocation}
           setSelectedLocation={setSelectedLocation}
           chooseOption={chooseOption}

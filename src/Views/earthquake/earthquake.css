@@ -198,7 +198,24 @@ color:red;
     color: rgba(0, 0, 0, 0.6);
 }
 
+.earthquake-click-optionselected {
+   
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #216ba582;
+    margin: 5px 8px;
+    border-radius: 10px;
+    border: 2px solid #0071BC;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    padding: 3px;
+    gap:3%;
+}
 .earthquake-click-option {
+   
     width: 100%;
     height: auto;
     display: flex;
@@ -213,13 +230,12 @@ color:red;
     padding: 3px;
     gap:3%;
 }
-.earthquake-properties:hover .place-earthquake > h4, .earthquake-properties:hover .time-earthquake > h5   {
-    color:white
+/* .earthquake-properties .place-earthquake > h4, .earthquake-properties.time-earthquake > h5   {
+  color:white
 }
-.earthquake-click-option:hover {
-    background-color: #3395D1;
-    color: white;
-}
+.earthquake-click-optionselected :hover {
+
+} */
 
 .react-datepicker__month {
     width:80px; 

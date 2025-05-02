@@ -92,6 +92,7 @@ const Header = ({
           )}
           {visible == 'weather' && (
             <Weather
+              setFlight={setFlight}
               clickedLocation={clickedLocation}
               setVisible={setVisible}
               setClickedLocation={setClickedLocation}
@@ -102,7 +103,11 @@ const Header = ({
           )}
 
           {visible == 'flight-by-route' && (
-            <FlightByRoute setOrigin={setOrigin} setVisible={setVisible} />
+            <FlightByRoute
+              setWeatherInformation={setWeatherInformation}
+              setOrigin={setOrigin}
+              setVisible={setVisible}
+            />
           )}
           {visible == 'flight-details' && (
             <FlightInformation

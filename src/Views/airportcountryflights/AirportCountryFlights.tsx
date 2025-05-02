@@ -16,7 +16,7 @@ const AirportCountryFlights = ({
   setFlyToTarget,
 }: AirportCountryFlightsProps) => {
   const [expandedIcao, setExpandedIcao] = useState<string | null>(null);
-
+  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
   const toggleAccordion = (icaoCode: string) => {
     setExpandedIcao((prev) => (prev === icaoCode ? null : icaoCode));
   };
@@ -28,7 +28,10 @@ const AirportCountryFlights = ({
   );
 
   return (
-    <div className="country-flight-wrappper"  onClick={(e) => e.stopPropagation()}>
+    <div
+      className="country-flight-wrappper"
+      onClick={(e) => e.stopPropagation()}
+    >
       {isLoading && <Loading />}
 
       <div className="country-flight-header">
@@ -47,11 +50,24 @@ const AirportCountryFlights = ({
         <div className="country-flight-f2">
           <span>Country Flights</span>
         </div>
-        <div className="near-by-f1" ><button onClick={()=> {setVisible('');setFlight(false);setSelectedLocation(null); setClickedLocation(null)}}>x</button></div>
+        <div className="near-by-f1">
+          <button
+            onClick={() => {
+              setVisible('');
+              setFlight(false);
+              setSelectedLocation(null);
+              setClickedLocation(null);
+            }}
+          >
+            x
+          </button>
+        </div>
       </div>
 
       {flightData?.states == null && (
-        <div className="near-by-lit-wrappers"><p>Data is not Available right now </p> </div>
+        <div className="near-by-lit-wrappers">
+          <p>Data is not Available right now </p>{' '}
+        </div>
       )}
       {!isLoading && filteredFlights?.length === 0 && (
         <div className="no-flights-found">
@@ -60,6 +76,9 @@ const AirportCountryFlights = ({
           </p>
         </div>
       )}
+      <div className="origin-name">
+        <span>{origin}</span>
+      </div>
 
       {filteredFlights?.length > 0 && (
         <div className="country-flight-list-wrapper">
@@ -73,9 +92,16 @@ const AirportCountryFlights = ({
             const isExpanded = expandedIcao === icaoCode;
 
             return (
-              <div className="airports" key={icaoCode}>
+              <div
+                className={`airports${
+                  selectedFlightId === icaoCode ? 'selected-flight' : ''
+                }`}
+                key={icaoCode}
+              >
                 <button
-                  className="airport-country-n1"
+                  className={`airport-country-n1${
+                    selectedFlightId === icaoCode ? 'selected-flight' : ''
+                  }`}
                   onClick={() => {
                     toggleAccordion(icaoCode);
                   }}
@@ -99,18 +125,27 @@ const AirportCountryFlights = ({
                       <div className="acc-btn">
                         <button
                           onClick={() => {
-                            setClickedLocation(null);
-                            if (latitude !== null && longitude !== null) {
-                              setSelectedLocation({
-                                lat: latitude,
-                                lon: longitude,
-                                id: icaoCode,
-                                angle: angle || 0,
-                                origin: flightCountry,
-                              });
-                              setFlight(true);
-                              setFly(true);
-                              setFlyToTarget([latitude, longitude]);
+                            const isAlreadySelected =
+                              selectedFlightId === icaoCode;
+
+                            if (isAlreadySelected) {
+                              setSelectedFlightId(null);
+                              setSelectedLocation(null);
+                            } else {
+                              setSelectedFlightId(icaoCode);
+                              setClickedLocation(null);
+                              if (latitude !== null && longitude !== null) {
+                                setSelectedLocation({
+                                  lat: latitude,
+                                  lon: longitude,
+                                  id: icaoCode,
+                                  angle: angle || 0,
+                                  origin: flightCountry,
+                                });
+                                setFlight(true);
+                                setFly(true);
+                                setFlyToTarget([latitude, longitude]);
+                              }
                             }
                           }}
                         >

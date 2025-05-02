@@ -5,4 +5,5 @@ export interface Weatherprops {
   clickedLocation: [number, number] | null;
   setClickedLocation: (location: [number, number] | null) => void;
   setWeatherInformation:(value:boolean)=>void
+  setFlight:(value:boolean)=>void;
 }

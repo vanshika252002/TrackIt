@@ -1,6 +1,6 @@
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import Loading from '../loading/Loading';
-
+import { useState } from 'react';
 import { FlightInformationProps, FlightDetail } from './Types/types';
 import { ICONS } from '../../assets';
 import './flightInformation.css';
@@ -38,6 +38,8 @@ const FlightInformation = ({
       flight.latitude &&
       flight.longitude
   );
+
+  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
   console.log('filtered flights', filteredFlights);
 
   return (
@@ -98,21 +100,35 @@ const FlightInformation = ({
             </span>{' '}
           </div>
           {filteredFlights.map((flight) => (
-            <div key={flight.icao24} className="wrapper-for-flight-information">
+            <div
+              key={flight.icao24}
+              className={`wrapper-for-flight-information${
+                selectedFlightId === flight.icao24 ? 'selected-flight' : ''
+              }`}
+            >
               <div className="acc-btn">
                 <button
                   onClick={() => {
-                    setClickedLocation(null);
-                    setSelectedLocation({
-                      lat: flight.latitude,
-                      lon: flight.longitude,
-                      id: flight.icao24,
-                      angle: flight.angle,
-                      origin: flight.originCountry,
-                    });
-                    setFlight(true);
-                    setFly(true);
-                    setFlyToTarget([flight.latitude, flight.longitude]);
+                    const isAlreadySelected =
+                      selectedFlightId === flight.icao24;
+
+                    if (isAlreadySelected) {
+                      setSelectedFlightId(null);
+                      setSelectedLocation(null);
+                    } else {
+                      setSelectedFlightId(flight.icao24);
+                      setClickedLocation(null);
+                      setSelectedLocation({
+                        lat: flight.latitude,
+                        lon: flight.longitude,
+                        id: flight.icao24,
+                        angle: flight.angle,
+                        origin: flight.originCountry,
+                      });
+                      setFlight(true);
+                      setFly(true);
+                      setFlyToTarget([flight.latitude, flight.longitude]);
+                    }
                   }}
                 >
                   <img src={ICONS.showonmap} />
