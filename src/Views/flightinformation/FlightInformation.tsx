@@ -1,11 +1,12 @@
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import Loading from '../loading/Loading';
-import { useState } from 'react';
+
 import { FlightInformationProps, FlightDetail } from './Types/types';
 import { ICONS } from '../../assets';
 import './flightInformation.css';
 
-const FlightInformation = ({
+function FlightInformation({
+  selectedLocation,
   origin,
   setVisible,
   setFlight,
@@ -13,7 +14,7 @@ const FlightInformation = ({
   setFly,
   setFlyToTarget,
   setClickedLocation,
-}: FlightInformationProps) => {
+}: FlightInformationProps) {
   const { data: liveflight, isLoading } = useGetAllFlightsQuery(null);
 
   const FlightDetails: FlightDetail[] =
@@ -39,7 +40,8 @@ const FlightInformation = ({
       flight.longitude
   );
 
-  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
+  const selectedFlightId = selectedLocation?.id ?? null;
+
   console.log('filtered flights', filteredFlights);
 
   return (
@@ -113,10 +115,8 @@ const FlightInformation = ({
                       selectedFlightId === flight.icao24;
 
                     if (isAlreadySelected) {
-                      setSelectedFlightId(null);
                       setSelectedLocation(null);
                     } else {
-                      setSelectedFlightId(flight.icao24);
                       setClickedLocation(null);
                       setSelectedLocation({
                         lat: flight.latitude,
@@ -176,6 +176,6 @@ const FlightInformation = ({
       )}
     </div>
   );
-};
+}
 
 export default FlightInformation;

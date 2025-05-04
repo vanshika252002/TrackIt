@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
 import * as L from 'leaflet';
-import 'leaflet.marker.slideto'; 
+import 'leaflet.marker.slideto';
 
-const SlidingMarker = ({ position, icon, onClick }: any) => {
+function SlidingMarker({ position, icon, onClick }: any) {
   const markerRef = useRef<any>(null);
   const map = useMap();
 
@@ -22,6 +22,6 @@ const SlidingMarker = ({ position, icon, onClick }: any) => {
   }, [position]);
 
   return null;
-};
+}
 
 export default SlidingMarker;

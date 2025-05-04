@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../../Components/firebase';
 import { updateAuthTokenRedux } from '../../../Store/Common';
-import { useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
 const useLogin = () => {

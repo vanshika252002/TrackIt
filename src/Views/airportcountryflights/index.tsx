@@ -1,1 +1,1 @@
-export {default} from './AirportCountryFlights';
+export { default } from './AirportCountryFlights';

@@ -22,13 +22,12 @@ const router = createBrowserRouter(
 
 function App() {
   // const [count, setCount] = useState<number>(0);
-  
+
   return (
-    <div className='app.tsx'>
+    <div className="app.tsx">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <HelmetProvider>
-         
             <RouterProvider router={router} />
           </HelmetProvider>
           <ToastContainer />

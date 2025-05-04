@@ -24,9 +24,9 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     element: <SignUp />,
   },
   {
-   path:ROUTES_CONFIG.VERIFY.path,
-   title:ROUTES_CONFIG.VERIFY.title,
-   element:<VerifyEmail/>
+    path: ROUTES_CONFIG.VERIFY.path,
+    title: ROUTES_CONFIG.VERIFY.title,
+    element: <VerifyEmail />,
   },
   {
     path: ROUTES_CONFIG.FORGOT.path,

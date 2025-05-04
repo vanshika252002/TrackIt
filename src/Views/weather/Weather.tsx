@@ -39,6 +39,8 @@ function Weather({
     } else {
       setLocations([]);
     }
+    setClickedLocation(null);
+    setSelectedWeather(false);
   }, [data]);
 
   useEffect(() => {

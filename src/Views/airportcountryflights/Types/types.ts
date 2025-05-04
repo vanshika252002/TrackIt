@@ -6,6 +6,12 @@ export interface AirportCountryFlightsProps {
   setFly: (value: boolean) => void;
   setFlyToTarget: (value: [number, number] | null) => void;
   setClickedLocation: (location: [number, number] | null) => void;
+  selectedLocation: {
+    id: string;
+    lat: number | null;
+    lon: number | null;
+    angle: number | null;
+  } | null;
 }
 export type Details = [
   string,

@@ -1,1 +1,1 @@
-export {default} from './FlightInformation';
+export { default } from './FlightInformation';

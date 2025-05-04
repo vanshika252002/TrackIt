@@ -1,4 +1,4 @@
-import './navbar.scss';
+import './navbar.css';
 // import { Link } from 'react-router-dom';
 
 // import { ROUTES } from '../../../../Shared/Constants';

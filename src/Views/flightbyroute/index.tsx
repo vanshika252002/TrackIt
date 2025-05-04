@@ -1,1 +1,1 @@
-export {default} from './FlightByRoute';
+export { default } from './FlightByRoute';

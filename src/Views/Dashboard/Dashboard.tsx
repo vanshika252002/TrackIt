@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Body from '../../Components/Layouts/body/Body';
+import Body from '../../Layouts/body/Body';
 
 import './Dashboard.css';
-import Header from '../../Components/Layouts/header/Header';
+import Header from '../../Layouts/header/Header';
 
 export default function Dashboard() {
   const [selectedLocation, setSelectedLocation] = useState<{

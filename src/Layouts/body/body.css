@@ -77,6 +77,8 @@ body,
   font-size: 1.2rem;
   line-height: 1.2;
   margin-top: 16px;
+  text-align: center;
+  margin-bottom:0;
 }
 .leaflet-container a.leaflet-popup-close-button {
   font-size: 1.5rem;
@@ -117,7 +119,7 @@ body,
 
 .my-custom-marker-class {
   position: absolute;
-  animation: moveMarker 1s ease-in-out forwards;
+  /* animation: moveMarker 1s ease-in-out forwards; */
   will-change: left, top;
   /* transition: 60s ease !important; */
 }
@@ -128,7 +130,7 @@ body,
 */
 
 .flight-wrapper {
-  transition: 60s ease !important;
+  /* transition: 60s ease !important; */
   transform-origin: center center;
 }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import Loading from '../loading/Loading';
 
@@ -6,7 +6,8 @@ import { AirportCountryFlightsProps, Details } from './Types/types';
 import { ICONS } from '../../assets';
 import './airportCountryFlights.css';
 
-const AirportCountryFlights = ({
+function AirportCountryFlights({
+  selectedLocation,
   setClickedLocation,
   origin,
   setVisible,
@@ -14,9 +15,9 @@ const AirportCountryFlights = ({
   setFlight,
   setFly,
   setFlyToTarget,
-}: AirportCountryFlightsProps) => {
+}: AirportCountryFlightsProps) {
   const [expandedIcao, setExpandedIcao] = useState<string | null>(null);
-  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
+  const selectedFlightId = selectedLocation?.id ?? null;
   const toggleAccordion = (icaoCode: string) => {
     setExpandedIcao((prev) => (prev === icaoCode ? null : icaoCode));
   };
@@ -26,6 +27,13 @@ const AirportCountryFlights = ({
   const filteredFlights = flightData?.states?.filter(
     (detail: Details) => origin.toLowerCase() === detail[2]?.toLowerCase()
   );
+  useEffect(() => {
+    if (!selectedLocation) {
+      setExpandedIcao(null);
+    } else {
+      setExpandedIcao(selectedLocation.id); // auto-expand accordion for selected flight
+    }
+  }, [selectedLocation]);
 
   return (
     <div
@@ -63,12 +71,17 @@ const AirportCountryFlights = ({
           </button>
         </div>
       </div>
-
+      {filteredFlights?.length > 0 && (
+        <div className="origin-name">
+          <span>{origin}</span>
+        </div>
+      )}
       {flightData?.states == null && (
         <div className="near-by-lit-wrappers">
           <p>Data is not Available right now </p>{' '}
         </div>
       )}
+
       {!isLoading && filteredFlights?.length === 0 && (
         <div className="no-flights-found">
           <p>
@@ -76,9 +89,6 @@ const AirportCountryFlights = ({
           </p>
         </div>
       )}
-      <div className="origin-name">
-        <span>{origin}</span>
-      </div>
 
       {filteredFlights?.length > 0 && (
         <div className="country-flight-list-wrapper">
@@ -110,7 +120,7 @@ const AirportCountryFlights = ({
                     <img src={ICONS.airports} alt="airport icon" />
                   </div>
                   <div className="formatted">
-                    <span>Icao Code: {icaoCode}</span>
+                    <span>ICAO Code: {icaoCode}</span>
                   </div>
                   <div
                     className={`accordion-toggle-symbol ${isExpanded ? 'open' : ''}`}
@@ -129,10 +139,8 @@ const AirportCountryFlights = ({
                               selectedFlightId === icaoCode;
 
                             if (isAlreadySelected) {
-                              setSelectedFlightId(null);
                               setSelectedLocation(null);
                             } else {
-                              setSelectedFlightId(icaoCode);
                               setClickedLocation(null);
                               if (latitude !== null && longitude !== null) {
                                 setSelectedLocation({
@@ -177,6 +185,6 @@ const AirportCountryFlights = ({
       )}
     </div>
   );
-};
+}
 
 export default AirportCountryFlights;

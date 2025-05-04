@@ -1,9 +1,8 @@
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { collection,query,where,getDocs } from 'firebase/firestore';
-import { db,auth } from '../Components/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { db, auth } from '../Components/firebase';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 export const forgotPassword = async (email: string) => {
   if (!email) {
@@ -12,12 +11,11 @@ export const forgotPassword = async (email: string) => {
   }
   try {
     const usersRef = collection(db, 'users');
-    const q = query(usersRef, where('email', '==',email));
+    const q = query(usersRef, where('email', '==', email));
     const querySnapshot = await getDocs(q);
-    if(querySnapshot.empty)
-    {
-      toast.error("No accouny found with this email address");
-      return ;
+    if (querySnapshot.empty) {
+      toast.error('No accouny found with this email address');
+      return;
     }
     const data = await sendPasswordResetEmail(auth, email.toLowerCase());
     console.log('data of the sendpassword email is', data);

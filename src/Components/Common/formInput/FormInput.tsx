@@ -22,7 +22,7 @@ const FormInput: React.FC<FormInputProps> = ({
   value,
   showPassword,
   setShowPassword,
-  enableToggle
+  enableToggle,
 }) => {
   const isPasswordField = type === 'password';
 

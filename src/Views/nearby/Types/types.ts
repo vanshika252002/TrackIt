@@ -19,6 +19,13 @@ export type Details = [
 ];
 
 export interface NearbyProps {
+  selectedLocation: {
+    id: string;
+    lat: number | null;
+    lon: number | null;
+    angle: number | null;
+  } | null;
+  setWeatherInformation: (value: boolean) => void;
   setVisible: (value: string) => void;
   setFlight: (value: boolean) => void;
   setSelectedLocation: (

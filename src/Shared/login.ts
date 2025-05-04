@@ -13,25 +13,24 @@ interface ValuesLogin {
   rememberMe: boolean;
 }
 
-
-
 export const initialValues = {
   email: localStorage.getItem('userEmail') || '',
   password: localStorage.getItem('userPassword') || '',
-  rememberMe: localStorage.getItem('userEmail') && localStorage.getItem('userPassword') ? true : false,
+  rememberMe: !!(
+    localStorage.getItem('userEmail') && localStorage.getItem('userPassword')
+  ),
 };
 
 export const validationSchema = Yup.object({
-  
   email: Yup.string()
-        .required('Email is required')
-        .matches(
-        /^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,6}$/,
-          'Enter a valid email address'
-        ),
+    .required('Email is required')
+    .matches(
+      /^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,6}$/,
+      'Enter a valid email address'
+    ),
   password: Yup.string()
-    .matches(/^\S*$/, "Password cannot contain spaces")
-  
+    .matches(/^\S*$/, 'Password cannot contain spaces')
+
     .required(DATA.PasswordRequired),
 });
 
@@ -46,13 +45,13 @@ export const onSubmit = async (
       values.email,
       values.password
     );
-    const user = userCredential.user;
+    const { user } = userCredential;
 
     if (!user.emailVerified) {
       toast.error('Email not verified. Please check your inbox.', {
         position: 'top-right',
       });
-      
+
       await auth.signOut();
       return;
     }
@@ -60,19 +59,16 @@ export const onSubmit = async (
     dispatch(updateAuthTokenRedux({ token }));
     toast.success('Login successful! Welcome', { position: 'top-right' });
 
-   
     if (values.rememberMe) {
-      localStorage.setItem('userEmail', values.email); 
-      localStorage.setItem('userPassword', values.password);  
+      localStorage.setItem('userEmail', values.email);
+      localStorage.setItem('userPassword', values.password);
     } else {
-      localStorage.removeItem('userEmail');  
-      localStorage.removeItem('userPassword');  
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPassword');
     }
 
     resetForm();
   } catch (error: any) {
-    toast.error("Invalid Credential");
-
-    
+    toast.error('Invalid Credential');
   }
 };

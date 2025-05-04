@@ -5,7 +5,7 @@ interface Props {
   flyToTarget: [number, number];
 }
 
-const FlyToTarget = ({ flyToTarget }: Props) => {
+function FlyToTarget({ flyToTarget }: Props) {
   console.log('fl y');
   const map = useMap();
   const prevTargetPosition = useRef<[number, number] | null>(null);
@@ -50,6 +50,6 @@ const FlyToTarget = ({ flyToTarget }: Props) => {
   }, [flyToTarget, map]);
 
   return null;
-};
+}
 
 export default memo(FlyToTarget);

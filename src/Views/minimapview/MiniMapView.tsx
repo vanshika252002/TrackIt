@@ -6,7 +6,7 @@ import 'leaflet-minimap';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import './minimapview.css';
 
-const MiniMapControl = () => {
+function MiniMapControl() {
   const map = useMap();
 
   useEffect(() => {
@@ -37,10 +37,10 @@ const MiniMapControl = () => {
       },
       mapOptions: {
         maxBounds: [
-          [85, -180], 
-          [-85, 180], 
+          [85, -180],
+          [-85, 180],
         ],
-        maxBoundsViscosity: 1.0, 
+        maxBoundsViscosity: 1.0,
       },
     });
 
@@ -52,5 +52,5 @@ const MiniMapControl = () => {
   }, [map]);
 
   return null;
-};
+}
 export default MiniMapControl;

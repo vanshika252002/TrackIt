@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db, auth } from '../../Components/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
 // import { forgotPassword } from './Utils/forgot';
 import { useNavigate } from 'react-router-dom';
+import { db, auth } from '../../Components/firebase';
 
 import { Button, Input } from '../../Components/Common';
 import 'react-toastify/dist/ReactToastify.css';
 import './forgot.css';
 import { ICONS } from '../../assets';
+
 function Forgot() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');

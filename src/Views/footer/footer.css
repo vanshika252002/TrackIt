@@ -12,7 +12,7 @@ padding:7px 20px 7px 20px;
 left: 45%;
 border-radius:50px;
 z-index: 5000;
-
+cursor: pointer;
 }
 .mini-map-option1{
   display: flex;
@@ -42,12 +42,14 @@ z-index: 5000;
   align-items:center;
   justify-content:center;
   padding:4px;
+  cursor: pointer;
 }
 .mini-map-option2 button{
   background-color:  rgb(57 57 57);
   border:none;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .mini-map-option2 img{
   width: 44px;

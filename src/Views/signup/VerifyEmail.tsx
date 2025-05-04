@@ -1,11 +1,10 @@
-
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { auth } from '../../Components/firebase';
 import { useDispatch } from 'react-redux';
-import { updateAuthTokenRedux} from '../../Store/Common';
+import { auth } from '../../Components/firebase';
+import { updateAuthTokenRedux } from '../../Store/Common';
 
-const VerifyEmail = () => {
+function VerifyEmail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,17 +26,20 @@ const VerifyEmail = () => {
   };
 
   return (
-   <div className='verify'>
-     <div className='verification'>
-      <h2>Verify Your Email</h2><br/>
+    <div className="verify">
+      <div className="back">
+        <button onClick={() => navigate('/login')}>Sign in</button>
+      </div>
+      <div className="verification">
+        <h2>Verify Your Email</h2>
+        <br />
 
-      <p>Please check your inbox and click the verification link.</p>
+        <p>Please check your inbox and click the verification link.</p>
 
-      <button onClick={checkEmailVerification}>Done</button>
-      <button onClick={()=>navigate('/login')}>Sign in</button>
+        <button onClick={checkEmailVerification}>Submit</button>
+      </div>
     </div>
-   </div>
   );
-};
+}
 
 export default VerifyEmail;

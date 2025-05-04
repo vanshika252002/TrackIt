@@ -1,9 +1,4 @@
-const Money=()=>{
-    
-    return(
-        <div>
-
-        </div>
-    )
+function Money() {
+  return <div />;
 }
 export default Money;

@@ -1,35 +1,33 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
-import { setFlights } from '../../../Store/flight';
 import * as L from 'leaflet';
-import { Tooltip } from 'react-leaflet';
-import FlyToTarget from './FlightToTarget';
-
 import {
+  Tooltip,
   MapContainer,
   useMapEvents,
   TileLayer,
   Popup,
   Marker,
 } from 'react-leaflet';
-
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import { useLazyGetWeatherByCoordsQuery } from '../../../Services/Api/weather';
-import MiniMapControl from '../../../Views/minimapview/MiniMapView';
-
-import { useGetAllFlightsQuery } from '../../../Services/Api/liveflight';
-import { ICONS } from '../../../assets';
 import { Icon } from 'leaflet';
+import { setFlights } from '../../Store/flight';
+import FlyToTarget from './FlightToTarget';
+
+import { useLazyGetWeatherByCoordsQuery } from '../../Services/Api/weather';
+import MiniMapControl from '../../Views/minimapview/MiniMapView';
+
+import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
+import { ICONS } from '../../assets';
 import 'leaflet/dist/leaflet.css';
 import './body.css';
-import Footer from '../../../Views/footer/Footer';
+import Footer from '../../Views/footer/Footer';
 import 'leaflet-rotatedmarker';
 
-import { useLazyGetEarthquakesQuery } from '../../../Services/Api/earthquake';
-import CustomZoom from '../../../Views/customZoom/CustomZoom';
-import Earthquake from '../../../Views/earthquake/Earthquake';
+import { useLazyGetEarthquakesQuery } from '../../Services/Api/earthquake';
+import CustomZoom from '../../Views/customZoom/CustomZoom';
 
-import { useLazyGetGeolocationByLatLngQuery } from '../../../Services/Api/geolocation';
+import { useLazyGetGeolocationByLatLngQuery } from '../../Services/Api/geolocation';
 import {
   EarthquakeFeature,
   Props,
@@ -37,7 +35,12 @@ import {
   WeatherData,
   GeolocationData,
 } from './Types/Types';
-import Loading from '../../../Views/loading';
+import Loading from '../../Views/loading';
+import DraggableWrapper from '../../Views/draggable/Draggable';
+
+const Earthquake = React.lazy(
+  () => import('../../Views/earthquake/Earthquake')
+);
 
 const createFlightIcon = (fillColor: string, size = 38) =>
   new L.DivIcon({
@@ -60,15 +63,15 @@ const EarthquakeAlert = new Icon({
   iconAnchor: [20, 20],
   iconSize: [38, 38],
 });
-const MapClickHandler = ({ setClickedLocation }: any) => {
+function MapClickHandler({ setClickedLocation }: any) {
   useMapEvents({
     click(e) {
       setClickedLocation([e.latlng.lat, e.latlng.lng]);
     },
   });
   return null;
-};
-const Body = ({
+}
+function Body({
   weatherInformation,
   setWeatherInformation,
   selectedLocation,
@@ -85,7 +88,7 @@ const Body = ({
   flyToTarget,
 
   setFly,
-}: Props) => {
+}: Props) {
   const dispatch = useDispatch();
 
   const chooseOption = {
@@ -96,11 +99,12 @@ const Body = ({
 
   const [loadingMap, setLoadingMap] = useState<boolean>(true);
 
-  const [startTime, setStartTime] = useState<string | null>('2025-03-01'); //forearthquake
+  const [startTime, setStartTime] = useState<string | null>('2025-03-01'); // forearthquake
   const [endTime, setEndTime] = useState<string | null>('2025-04-01');
   const [clickedLocationEarthquake, setClickedLocationEarthquake] = useState<
     [number, number, string, number] | null
   >(null);
+  const [triggerApi, setTriggerApi] = useState<boolean>(false);
 
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [geo, setGeo] = useState<GeolocationData | null>(null);
@@ -126,15 +130,25 @@ const Body = ({
     }
   }, [liveflight]);
 
+  // useEffect(() => {
+  //   if (startTime && endTime) {
+  //     console.log("Gtg")
+  //     if ( visible === 'earthquake-list') {
+  //       triggerEarthquakeQuery({ startTime, endTime });
+  //       setClickedLocationEarthquake(null);
+  //     }
+  //   }
+  // }, [startTime, endTime]);
+
   useEffect(() => {
-    if (startTime && endTime) {
-      if (alert || visible === 'earthquake-list') {
-        triggerEarthquakeQuery({ startTime, endTime });
-        setClickedLocationEarthquake(null);
-      }
+    if (triggerApi) {
+      console.log('Frf');
+      triggerEarthquakeQuery({ startTime, endTime });
+      setVisible('');
     }
-  }, [startTime, endTime, alert, visible, triggerEarthquakeQuery]);
-  //console.log("earthquakeData",earthquakeData);
+  }, [triggerApi]);
+
+  // console.log("earthquakeData",earthquakeData);
   // console.log('selected angle is', selectedLocation?.angle);
 
   useEffect(() => {
@@ -218,6 +232,7 @@ const Body = ({
           </div>
         )}
         <CustomZoom
+          setTriggerApi={setTriggerApi}
           setVisible={setVisible}
           clickedLocation={clickedLocation}
           setClickedLocation={setClickedLocation}
@@ -259,7 +274,7 @@ const Body = ({
                       <strong>Origin:</strong>
                       {details[2]}
                       <br />
-                      <strong>ICAO code:</strong> {details[0]}
+                      <strong>ICAO Code:</strong> {details[0]}
                       <br />
                     </Tooltip>
                   </Marker>
@@ -279,10 +294,16 @@ const Body = ({
             zIndexOffset={1000}
             rotationAngle={selectedLocation.angle || 0}
             rotationOrigin="center center "
+            eventHandlers={{
+              click: () => {
+                setSelectedLocation(null);
+                setClickedLocation(null);
+              },
+            }}
           >
             <Tooltip permanent>
               <strong>Origin:</strong> {selectedLocation.origin} <br />
-              <strong>ICAO code:</strong> {selectedLocation.id} <br />
+              <strong>ICAO Code:</strong> {selectedLocation.id} <br />
             </Tooltip>
           </Marker>
         )}
@@ -351,15 +372,20 @@ const Body = ({
               {popupLoading ? (
                 <div className="popup1">
                   <h2>Loading..</h2>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <span />
+                  <span />
+                  <span />
                 </div>
               ) : weather && geo ? (
                 <div className="popup">
                   <h2>
                     {geo?.results[0]?.annotations?.flag}{' '}
-                    {geo?.results[0]?.components?.state}
+                    {(geo?.results[0]?.components as any)?.city ||
+                      (geo?.results[0]?.components as any)?.state ||
+                      (geo?.results[0]?.components as any)?.country ||
+                      (geo?.results[0]?.components as any)?.body_of_water ||
+                      geo?.results[0]?.formatted ||
+                      'Location yet to be discovered 🌍'}
                   </h2>
                   <br />
                   <span>
@@ -389,30 +415,36 @@ const Body = ({
       </MapContainer>
 
       <Footer
+        setTriggerApi={setTriggerApi}
         setFly={setFly}
         setAlert={setAlert}
         setFlight={setFlight}
         setVisible={setVisible}
         setClickedLocation={setClickedLocation}
+        setWeatherInformation={setWeatherInformation}
       />
 
       {visible === 'earthquake-list' && (
-        <Earthquake
-          setFly={setFly}
-          setStartTime={setStartTime}
-          setEndTime={setEndTime}
-          startTime={startTime}
-          endTime={endTime}
-          setAlert={setAlert}
-          setClickedLocationEarthquake={setClickedLocationEarthquake}
-          setClickedLocation={setClickedLocation}
-          setVisible={setVisible}
-          setFlyToTarget={setFlyToTarget}
-          visible={visible}
-        />
+        <DraggableWrapper>
+          <Suspense fallback={<div>Loading Earthquake Data...</div>}>
+            <Earthquake
+              setFly={setFly}
+              setStartTime={setStartTime}
+              setEndTime={setEndTime}
+              startTime={startTime}
+              endTime={endTime}
+              setAlert={setAlert}
+              setClickedLocationEarthquake={setClickedLocationEarthquake}
+              setClickedLocation={setClickedLocation}
+              setVisible={setVisible}
+              setFlyToTarget={setFlyToTarget}
+              visible={visible}
+            />
+          </Suspense>
+        </DraggableWrapper>
       )}
     </div>
   );
-};
+}
 
 export default Body;

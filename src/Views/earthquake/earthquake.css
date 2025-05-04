@@ -140,14 +140,18 @@
 display: flex;
 justify-content: center;
 align-items:center;
-width:30%;
+width:75%;
 height:100%;
-
+flex-direction: column;
 font-size:1rem;
 color:red;
 
 }
+.earthquake-magnitude span{
+    margin-top:5px;
+}
 .earthquake-properties{
+    padding-left:10px;
     display:flex;
     flex-direction: column;
     justify-content: center;

@@ -1,1 +1,1 @@
-export {default} from './CustomZoom';
+export { default } from './CustomZoom';

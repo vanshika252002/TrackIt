@@ -1,1 +1,1 @@
-export {default} from  './Earthquake';
+export { default } from './Earthquake';

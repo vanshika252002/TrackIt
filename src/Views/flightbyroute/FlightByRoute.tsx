@@ -4,15 +4,15 @@ import { RouteProps } from './Types/types';
 import { ICONS } from '../../assets';
 import './flightbyroute.css';
 
-const FlightByRoute = ({
+function FlightByRoute({
   setWeatherInformation,
   setVisible,
   setOrigin,
-}: RouteProps) => {
+}: RouteProps) {
   const [originInput, setOriginInput] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setOriginInput(value);
     setOrigin(value);
     setWeatherInformation(false);
@@ -68,6 +68,6 @@ const FlightByRoute = ({
       </div>
     </div>
   );
-};
+}
 
 export default FlightByRoute;

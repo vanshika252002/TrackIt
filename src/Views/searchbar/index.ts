@@ -1,1 +1,1 @@
-export {default} from  './SearchOptions';
+export { default } from './SearchOptions';

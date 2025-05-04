@@ -8,15 +8,17 @@ import { getDistanceFromLatLonInKm } from './Util/Util';
 import { ICONS } from '../../assets';
 import './nearby.css';
 
-const Nearby = ({
+function Nearby({
+  selectedLocation,
+  setWeatherInformation,
   setVisible,
   setSelectedLocation,
   setFlight,
   setFly,
   setFlyToTarget,
   setClickedLocation,
-}: NearbyProps) => {
-  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
+}: NearbyProps) {
+  const selectedFlightId = selectedLocation?.id ?? null;
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -108,6 +110,7 @@ const Nearby = ({
       </div>
     );
   }
+
   return (
     <div className="near-by-wrappper" onClick={(e) => e.stopPropagation()}>
       <div className="near-by-header">
@@ -208,10 +211,8 @@ const Nearby = ({
                     const isAlreadySelected = selectedFlightId === details[0];
 
                     if (isAlreadySelected) {
-                      setSelectedFlightId(null);
                       setSelectedLocation(null);
                     } else {
-                      setSelectedFlightId(details[0]);
                       setClickedLocation(null);
                       setSelectedLocation({
                         lat: details[6],
@@ -224,6 +225,7 @@ const Nearby = ({
                       setFly(true);
                       setFlyToTarget([details[6], details[5]]);
                     }
+                    setWeatherInformation(false);
                   }}
                 >
                   <img src={ICONS.showonmap} />
@@ -236,6 +238,6 @@ const Nearby = ({
       )}
     </div>
   );
-};
+}
 
 export default Nearby;

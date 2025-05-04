@@ -1,19 +1,22 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 
 import { FlightData, Props } from './Types/types';
 import { ICONS } from '../../assets';
 import './live.css';
 
-const Live = ({
+function Live({
+  setWeatherInformation,
   setVisible,
   setFlight,
   setSelectedLocation,
   setFly,
   setFlyToTarget,
   setClickedLocation,
-}: Props) => {
-  const [selectedFlightId, setSelectedFlightId] = useState<string | null>(null);
+  selectedLocation,
+}: Props) {
+  const selectedFlightId = selectedLocation?.id ?? null;
+
   const { data: LiveFlights } = useGetAllFlightsQuery(null);
   const [expandedIcao, setExpandedIcao] = useState<string | null>(null);
 
@@ -57,6 +60,14 @@ const Live = ({
 
     return sortedGroupedFlights;
   }, [LiveFlights]);
+
+  useEffect(() => {
+    if (!selectedLocation) {
+      setExpandedIcao(null);
+    } else {
+      setExpandedIcao(selectedLocation.id); // auto-expand accordion for selected flight
+    }
+  }, [selectedLocation]);
 
   return (
     <div className="airport-wrappper-l1" onClick={(e) => e.stopPropagation()}>
@@ -109,10 +120,12 @@ const Live = ({
                   return (
                     <div key={icao} className="l3-wrapper">
                       <button
-                        className={`l3${isExpanded ? 'open' : ''}`}
+                        className={`l3${
+                          selectedFlightId === icao ? 'open' : ''
+                        }`}
                         onClick={() => toggleAccordion(icao)}
                       >
-                        <strong> ICAO : {icao}</strong>
+                        <strong> ICAO Code: {icao}</strong>
                         <div className="accordion-toggle-symbol">
                           <img src={ICONS.accordianLogo} />
                         </div>
@@ -125,33 +138,28 @@ const Live = ({
                           </div>
                         )}
                         {isExpanded && lat && lon && (
-                          <div
-                            className={`accordion-content-l1${
-                              selectedFlightId === icao ? 'selected-flight' : ''
-                            }`}
-                          >
+                          <div className="accordion-content-l1">
                             <div className="acc-btn">
                               <button
                                 onClick={() => {
                                   const isAlreadySelected =
                                     selectedFlightId === icao;
                                   if (isAlreadySelected) {
-                                    setSelectedFlightId(null);
                                     setSelectedLocation(null);
                                   } else {
-                                    setSelectedFlightId(icao);
                                     setClickedLocation(null);
                                     setSelectedLocation({
-                                      lat: lat,
-                                      lon: lon,
+                                      lat,
+                                      lon,
                                       id: icao,
-                                      angle: angle,
+                                      angle,
                                       origin: originCountry,
                                     });
                                     setFlight(true);
                                     setFly(true);
                                     setFlyToTarget([lat, lon]);
                                   }
+                                  setWeatherInformation(false);
                                 }}
                               >
                                 <img src={ICONS.showonmap} />
@@ -184,6 +192,6 @@ const Live = ({
       )}
     </div>
   );
-};
+}
 
 export default Live;

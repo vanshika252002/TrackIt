@@ -5,7 +5,7 @@ import { ICONS } from '../../assets';
 function SearchBar({
   setVisible,
   setSelectedLocation,
-  setWeatherInformation,
+
   setClickedLocation,
 }: SearchbarProps) {
   return (
@@ -63,7 +63,6 @@ function SearchBar({
             onClick={() => {
               setVisible('airports');
               setClickedLocation(null);
-              setWeatherInformation(false);
             }}
           >
             <img src={ICONS.airports} /> Airports
@@ -72,7 +71,6 @@ function SearchBar({
             onClick={() => {
               setVisible('nearby');
               setClickedLocation(null);
-              setWeatherInformation(false);
             }}
           >
             <img src={ICONS.nearby} /> Nearby Flights

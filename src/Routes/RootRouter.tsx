@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useRoutes } from 'react-router-dom';
 import DocumentTitle from './DocumentTitle';
 import { authenticatedRoutes, guestRoutes } from './config';
-import AppLayout from '../Components/Layouts/AppLayout';
+import AppLayout from '../Layouts/AppLayout';
 import type { RootState } from '../Store';
 
 function RootRouter() {

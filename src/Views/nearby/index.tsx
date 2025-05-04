@@ -1,1 +1,1 @@
-export {default} from './Nearby';
+export { default } from './Nearby';

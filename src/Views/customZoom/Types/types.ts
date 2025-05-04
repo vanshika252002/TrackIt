@@ -1,15 +1,16 @@
-export interface Props{
-    chooseOption:{flight:{setFlight:(value:boolean)=>void,flight:boolean};
-    earthquake:{setAlert:(value:boolean)=>void,alert:boolean};
+export interface Props {
+  setTriggerApi: (value: boolean) => void;
+  chooseOption: {
+    flight: { setFlight: (value: boolean) => void; flight: boolean };
+    earthquake: { setAlert: (value: boolean) => void; alert: boolean };
     visibility: {
-      setVisible: (value: string) => void
-    }
-    
-  }
-  setVisible:(value:string)=>void;
-  weatherInformation:boolean,
-  setWeatherInformation:(value:boolean)=>void
-  clickedLocation:[number,number]| null;
+      setVisible: (value: string) => void;
+    };
+  };
+  setVisible: (value: string) => void;
+  weatherInformation: boolean;
+  setWeatherInformation: (value: boolean) => void;
+  clickedLocation: [number, number] | null;
   setClickedLocation: (location: [number, number] | null) => void;
   setSelectedLocation: (
     location: {
@@ -20,4 +21,4 @@ export interface Props{
       origin: string | null;
     } | null
   ) => void;
-  }
+}

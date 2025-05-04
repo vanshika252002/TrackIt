@@ -5,7 +5,8 @@ import { ICONS } from '../../assets';
 import './customZoom.css';
 import { Props } from './Types/types';
 
-const CustomZoom = ({
+function CustomZoom({
+  setTriggerApi,
   clickedLocation,
   setVisible,
   chooseOption,
@@ -13,7 +14,7 @@ const CustomZoom = ({
   setSelectedLocation,
   weatherInformation,
   setWeatherInformation,
-}: Props) => {
+}: Props) {
   const map = useMap();
   const [open, setOpen] = useState(true);
   const zoomControlRef = useRef<HTMLDivElement>(null);
@@ -35,6 +36,7 @@ const CustomZoom = ({
     if (!weatherInformation) {
       setClickedLocation(null);
     }
+    setOpen(true);
   }, [weatherInformation]);
   useEffect(() => {
     if (!flight.flight) {
@@ -61,6 +63,7 @@ const CustomZoom = ({
           earthquake.setAlert(!earthquake.alert),
             flight.setFlight(false),
             setWeatherInformation(false);
+          setTriggerApi(true);
         }}
       >
         <img src={ICONS.earthquakealert} />
@@ -103,14 +106,16 @@ const CustomZoom = ({
           >
             x
           </button>
+          <img src={ICONS.cloudy} />
           <span>
-            You can click on the map to know the weather of particular location
+            Tap on any location on the map to see the current weather
+            information for that spot!
           </span>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default CustomZoom;
 

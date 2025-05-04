@@ -15,7 +15,7 @@ import map from './icons/map.png';
 import earthquakealert from './icons/earthquakealert.png';
 import loading from './icons/loading.svg';
 import earthquake from './icons/earthquake.png';
-import accordianLogo  from './icons/download.svg';
+import accordianLogo from './icons/download.svg';
 import arrow from './icons/arrow.svg';
 import hightlightedflight from './icons/aeroplane-mode.png';
 import login from './icons/login.jpg';
@@ -29,6 +29,7 @@ import s from './icons/s.svg';
 import powerbtn from './icons/powerbtn.png';
 import searching from './icons/searching.png';
 import cloudy from './icons/cloudy.png';
+
 export const ICONS = {
   cloudy,
   powerbtn,
@@ -60,6 +61,5 @@ export const ICONS = {
   symbolforairport,
   crossSymbol,
   map,
-  earthquakealert
-
+  earthquakealert,
 };

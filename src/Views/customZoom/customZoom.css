@@ -14,10 +14,11 @@
     top: 35%;
     left: 39%;
     width: 20vw;
-    height: 11vh;
+    height: auto;
     border-radius: 10px;
-    display: flex
-;
+    display: flex;
+ 
+
     
     /* justify-content: center; */
     align-items: center;
@@ -42,6 +43,12 @@
 .knowtheweather span{
   margin-bottom: 5px;;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
+
+}
+.knowtheweather img{
+  width: 50px;
+  height: 52px;
 }
   .btn-zoom{
     display: flex;

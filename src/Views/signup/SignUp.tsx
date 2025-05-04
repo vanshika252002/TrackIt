@@ -60,7 +60,7 @@ const SignUp: React.FC = () => {
                 }}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                enableToggle={true}
+                enableToggle
               />
 
               <FormInput

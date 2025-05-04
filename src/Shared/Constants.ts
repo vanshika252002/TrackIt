@@ -1,4 +1,3 @@
-
 const STRING: string = 'Test';
 export { STRING };
 
@@ -8,7 +7,7 @@ const ROUTES = {
   REGISTER: '/register',
   ABOUT: '/about-us',
   SIGNUP: '/signup',
-  VERIFY:'/verify-email',
+  VERIFY: '/verify-email',
   LOGOUT: '/logout',
   FORGOT: '/forgot',
   WEATHER: '/weather',
@@ -44,9 +43,9 @@ const ROUTES_CONFIG = {
     path: ROUTES.SIGNUP,
     title: 'Sign Up',
   },
-  VERIFY:{
-     path:ROUTES.VERIFY,
-     title:'Verify'
+  VERIFY: {
+    path: ROUTES.VERIFY,
+    title: 'Verify',
   },
   FORGOT: {
     path: ROUTES.FORGOT,

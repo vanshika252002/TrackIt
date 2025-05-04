@@ -1,21 +1,21 @@
-import { useState } from 'react'; //third-party
-//import { useLazyGetWeatherByCoordsQuery } from '../../Services/Api/weather';
+import { useState } from 'react'; // third-party
+// import { useLazyGetWeatherByCoordsQuery } from '../../Services/Api/weather';
 
-import SearchBar from '../../../Views/searchbar/SearchOptions';
-import Weather from '../../../Views/weather/Weather';
-import FlightByRoute from '../../../Views/flightbyroute';
-import FlightInformation from '../../../Views/flightinformation';
-import Nearby from '../../../Views/nearby'; //components
-import Airports from '../../../Views/airports';
-import AirportCountryFlights from '../../../Views/airportcountryflights';
-import Live from '../../../Views/live';
+import SearchBar from '../../Views/searchbar/SearchOptions';
+import Weather from '../../Views/weather/Weather';
+import FlightByRoute from '../../Views/flightbyroute';
+import FlightInformation from '../../Views/flightinformation';
+import Nearby from '../../Views/nearby'; // components
+import Airports from '../../Views/airports';
+import AirportCountryFlights from '../../Views/airportcountryflights';
+import Live from '../../Views/live';
 
-import { Props } from './Types/types'; //types+css
-import { ICONS } from '../../../assets';
+import { Props } from './Types/types'; // types+css
+import { ICONS } from '../../assets';
 import './header.css';
-import Confirmation from '../../../Views/confirmation';
+import Confirmation from '../../Views/confirmation';
 
-const Header = ({
+function Header({
   setWeatherInformation,
   clickedLocation,
   setSelectedLocation,
@@ -26,7 +26,8 @@ const Header = ({
   setVisible,
   setFly,
   setFlyToTarget,
-}: Props) => {
+  selectedLocation,
+}: Props) {
   // const [filterData, setFilterData] = useState({
   //   origin: null,
   //   country:null,
@@ -118,6 +119,7 @@ const Header = ({
               setFlight={setFlight}
               setSelectedLocation={setSelectedLocation}
               setClickedLocation={setClickedLocation}
+              selectedLocation={selectedLocation}
             />
           )}
           {visible == 'nearby' && (
@@ -128,10 +130,16 @@ const Header = ({
               setClickedLocation={setClickedLocation}
               setFlight={setFlight}
               setVisible={setVisible}
+              setWeatherInformation={setWeatherInformation}
+              selectedLocation={selectedLocation}
             />
           )}
           {visible == 'airports' && (
-            <Airports setVisible={setVisible} setOrigin={setOrigin} />
+            <Airports
+              setVisible={setVisible}
+              setOrigin={setOrigin}
+              setWeatherInformation={setWeatherInformation}
+            />
           )}
           {visible == 'airport-by-code' && (
             <AirportCountryFlights
@@ -142,6 +150,7 @@ const Header = ({
               setFly={setFly}
               setFlyToTarget={setFlyToTarget}
               setClickedLocation={setClickedLocation}
+              selectedLocation={selectedLocation}
             />
           )}
 
@@ -153,6 +162,8 @@ const Header = ({
               setFlight={setFlight}
               setFly={setFly}
               setFlyToTarget={setFlyToTarget}
+              setWeatherInformation={setWeatherInformation}
+              selectedLocation={selectedLocation}
             />
           )}
         </div>
@@ -163,6 +174,6 @@ const Header = ({
       </div>
     </div>
   );
-};
+}
 
 export default Header;

@@ -5,14 +5,12 @@ import { CustomRouter } from './RootRoutes';
 // import SignUp from '../Views/signup/SignUp';
 import Dashboard from '../Views/Dashboard';
 
-
 // eslint-disable-next-line import/prefer-default-export
 export const PRIVATE_ROUTES: Array<CustomRouter> = [
   {
     path: ROUTES_CONFIG.HOMEPAGE.path,
     element: <Dashboard />,
     title: ROUTES_CONFIG.HOMEPAGE.title,
-  
   },
   {
     path: ROUTES_CONFIG.ABOUT.path,

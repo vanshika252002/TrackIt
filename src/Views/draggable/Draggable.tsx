@@ -1,55 +1,62 @@
-// import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, ReactNode } from 'react';
 
-// const DraggableWrapper = ({ children }) => {
-//   const wrapperRef = useRef(null);
-//   const [dragging, setDragging] = useState(false);
-//   const [position, setPosition] = useState({ x: 10, y: 10 });
+type DraggableWrapperProps = {
+  children: ReactNode;
+};
 
-//   useEffect(() => {
-//     const handleMouseMove = (e) => {
-//       if (!dragging) return;
-//       const wrapper = wrapperRef.current;
-//       const x = e.clientX - parseInt(wrapper.dataset.mouseX);
-//       const y = e.clientY - parseInt(wrapper.dataset.mouseY);
-//       setPosition({ x, y });
-//     };
+const DraggableWrapper: React.FC<DraggableWrapperProps> = ({ children }) => {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 10, y: 10 });
 
-//     const handleMouseUp = () => {
-//       setDragging(false);
-//     };
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!dragging) return;
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
 
-//     window.addEventListener("mousemove", handleMouseMove);
-//     window.addEventListener("mouseup", handleMouseUp);
+      const x = e.clientX - parseInt(wrapper.dataset.mouseX ?? '0', 10);
+      const y = e.clientY - parseInt(wrapper.dataset.mouseY ?? '0', 10);
+      setPosition({ x, y });
+    };
 
-//     return () => {
-//       window.removeEventListener("mousemove", handleMouseMove);
-//       window.removeEventListener("mouseup", handleMouseUp);
-//     };
-//   }, [dragging]);
+    const handleMouseUp = () => {
+      setDragging(false);
+    };
 
-//   const handleMouseDown = (e) => {
-//     setDragging(true);
-//     const wrapper = wrapperRef.current;
-//     wrapper.dataset.mouseX = e.clientX - wrapper.offsetLeft;
-//     wrapper.dataset.mouseY = e.clientY - wrapper.offsetTop;
-//   };
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
 
-//   return (
-//     <div
-//       ref={wrapperRef}
-//       onMouseDown={handleMouseDown}
-//       style={{
-//         position: "fixed",
-//         left: `${position.x}px`,
-//         top: `${position.y}px`,
-//         cursor: "move",
-//         userSelect: "none",
-//         zIndex: 10000,
-//       }}
-//     >
-//       {children}
-//     </div>
-//   );
-// };
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [dragging]);
 
-// export default DraggableWrapper;
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setDragging(true);
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    wrapper.dataset.mouseX = (e.clientX - wrapper.offsetLeft).toString();
+    wrapper.dataset.mouseY = (e.clientY - wrapper.offsetTop).toString();
+  };
+
+  return (
+    <div
+      ref={wrapperRef}
+      onMouseDown={handleMouseDown}
+      style={{
+        position: 'fixed',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        cursor: 'move',
+        userSelect: 'none',
+        zIndex: 10000,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default DraggableWrapper;

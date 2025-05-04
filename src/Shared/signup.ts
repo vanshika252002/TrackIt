@@ -1,14 +1,14 @@
 import * as Yup from 'yup';
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification
+  sendEmailVerification,
 } from 'firebase/auth';
 import { FormikHelpers } from 'formik';
-import {doc,setDoc} from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {auth,db} from '../Components/firebase';
+import { auth, db } from '../Components/firebase';
 import { DATA } from '../Views';
 
 interface SignUpFormValues {
@@ -19,25 +19,25 @@ interface SignUpFormValues {
 export const initialValues = { email: '', password: '', confirmPassword: '' };
 export const validationSchema = Yup.object({
   email: Yup.string()
-  .required('Email is required')
-  .matches(
-   /^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,6}$/,
+    .required('Email is required')
+    .matches(
+      /^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,6}$/,
 
-    'Enter a valid email address'
-  ),
+      'Enter a valid email address'
+    ),
   password: Yup.string()
-  .required("Password is required")
-  .matches(/^\S*$/, "Password cannot contain spaces")
-  .min(6, "Password must have at least 6 characters")
-  .max(10, 'Password cannot be more than 10 characters')
-  .matches(/[A-Z]/, "Must contain at least one uppercase")
-  .matches(/[a-z]/, "Must contain at least one lowercase")
-  
-  .matches(
-    /[!@#$%^&*()<>?:"{}]/,
-    "Must contain at least one special character"
-  )
-  .matches(/[0-9]/, "Must contain at least one number"),
+    .required('Password is required')
+    .matches(/^\S*$/, 'Password cannot contain spaces')
+    .min(6, 'Password must have at least 6 characters')
+    .max(10, 'Password cannot be more than 10 characters')
+    .matches(/[A-Z]/, 'Must contain at least one uppercase')
+    .matches(/[a-z]/, 'Must contain at least one lowercase')
+
+    .matches(
+      /[!@#$%^&*()<>?:"{}]/,
+      'Must contain at least one special character'
+    )
+    .matches(/[0-9]/, 'Must contain at least one number'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref(DATA.Password)], DATA.PasswordMatching)
     .required(DATA.ConfirmPasswordRequired),
@@ -57,13 +57,9 @@ export const handleSignUpSubmit = async (
     const { user } = userCredential;
     await sendEmailVerification(user);
 
-    await setDoc(doc(db, "users", user.uid), {
-        email: values.email,
-
-      });
-
-
-
+    await setDoc(doc(db, 'users', user.uid), {
+      email: values.email,
+    });
 
     toast.success('Signup successful. Please verify your email !', {
       position: 'top-right',

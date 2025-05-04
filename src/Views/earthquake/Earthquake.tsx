@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
-import React from 'react';
+
 import { useLazyGetEarthquakesQuery } from '../../Services/Api/earthquake';
 import { useDebounce } from '../../Shared/Utils';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './earthquake.css';
-//import EarthquakeDetails from '../earthquakeDetails';
-//import DraggableWrapper from '../Draggable/Draggable';
+// import EarthquakeDetails from '../earthquakeDetails';
+// import DraggableWrapper from '../Draggable/Draggable';
 
 import { EarthquakeProps, EarthquakeFeature } from './Types/types';
 import Loading from '../loading';
+
 const CustomDatePickerInput = React.forwardRef<
   HTMLDivElement,
   { value?: string; onClick?: () => void; placeholder?: string }
@@ -32,7 +33,7 @@ const CustomDatePickerInput = React.forwardRef<
   </div>
 ));
 
-const Earthquake = ({
+function Earthquake({
   setStartTime,
   setEndTime,
   startTime,
@@ -42,9 +43,9 @@ const Earthquake = ({
   setVisible,
   setFly,
   setFlyToTarget,
-  visible,
+
   setClickedLocation,
-}: EarthquakeProps) => {
+}: EarthquakeProps) {
   const [dateError, setDateError] = useState('');
   const [isStartDateOpen, setIsStartDateOpen] = useState(false);
   const [isEndDateOpen, setIsEndDateOpen] = useState(false);
@@ -69,21 +70,21 @@ const Earthquake = ({
       document.body.removeEventListener('wheel', preventScroll);
     };
   }, [isStartDateOpen, isEndDateOpen]);
-  const inputRef1 = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (!inputRef1.current?.contains(event.target as Node)) {
-        setVisible('');
-        setFly(false);
-        setAlert(false);
-        setClickedLocationEarthquake(null);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [visible]);
+  // const inputRef1 = useRef<HTMLDivElement>(null);
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (!inputRef1.current?.contains(event.target as Node)) {
+  //       setVisible('');
+  //       setFly(false);
+  //       setAlert(false);
+  //       setClickedLocationEarthquake(null);
+  //     }
+  //   }
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, [visible]);
 
   const formatDate = (date: Date): string => {
     if (!(date instanceof Date) || isNaN(date.getTime())) return '';
@@ -104,7 +105,7 @@ const Earthquake = ({
   const debouncedStartTime = useDebounce(startTime, 500);
   const debouncedEndTime = useDebounce(endTime, 500);
 
-  const [trigger, { data: earthquakeData, isLoading }] =
+  const [trigger, { data: earthquakeData, isLoading, isFetching, error }] =
     useLazyGetEarthquakesQuery();
 
   useEffect(() => {
@@ -125,11 +126,11 @@ const Earthquake = ({
   const formattedStartTime = startTime ? parseDateString(startTime) : null;
   const formattedEndTime = endTime ? parseDateString(endTime) : null;
 
-  const Timestamp = (timestamp: number) => {
-    const date = new Date(timestamp);
-    date.setMinutes(date.getMinutes() + 330);
-    return date.toISOString().replace('T', ' ').slice(0, 19) + '(UTC+05:30)';
-  };
+  // const Timestamp = (timestamp: number) => {
+  //   const date = new Date(timestamp);
+  //   date.setMinutes(date.getMinutes() + 330);
+  //   return date.toISOString().replace('T', ' ').slice(0, 19) + '(UTC+05:30)';
+  // };
   const filteredEarthquakes = earthquakeData?.features?.filter(
     (item: EarthquakeFeature) => {
       if (!startTime || !endTime) return true;
@@ -141,11 +142,7 @@ const Earthquake = ({
   );
 
   return (
-    <div
-      className="earthquake-wrapper"
-      ref={inputRef1}
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="earthquake-wrapper" onClick={(e) => e.stopPropagation()}>
       <div className="earthquake-header">
         <button
           onClick={() => {
@@ -180,6 +177,8 @@ const Earthquake = ({
                 setStartTime('');
                 setEndTime('');
               }
+              setSelectedEarthquakeId(null);
+              setClickedLocationEarthquake(null);
             }}
             onCalendarOpen={() => {
               setIsStartDateOpen(true);
@@ -203,7 +202,18 @@ const Earthquake = ({
           <DatePicker
             selected={formattedEndTime}
             onChange={(date: Date | null) => {
-              setEndTime(date ? formatDate(date) : '');
+              if (date) {
+                const end = new Date(date);
+                const start = new Date(date);
+                start.setMonth(start.getMonth() - 1);
+                setEndTime(formatDate(end));
+                setStartTime(formatDate(start));
+              } else {
+                setEndTime('');
+                setStartTime('');
+              }
+              setSelectedEarthquakeId(null);
+              setClickedLocationEarthquake(null);
             }}
             onCalendarOpen={() => {
               setIsEndDateOpen(true);
@@ -226,21 +236,19 @@ const Earthquake = ({
 
       {dateError && <div className="date-error-1">{dateError}</div>}
 
-      {filteredEarthquakes?.length === 0 && !dateError && (
-        <div className="no-earthquakes">
-          <h4>No Earthquakes Found in the Selected Date Range</h4>
-        </div>
-      )}
       <div className="earthquake-list">
-        {earthquakeData?.features
-          .filter((item: EarthquakeFeature) => {
-            if (!startTime || !endTime) return true;
-            const start = new Date(startTime).getTime();
-            const end = new Date(endTime).getTime();
-            const quakeTime = item.properties.time;
-            return quakeTime >= start && quakeTime <= end;
-          })
-          .map((item: EarthquakeFeature) => (
+        {isLoading || isFetching ? (
+          <Loading />
+        ) : error ? (
+          <div className="no-earthquakes">
+            <h4>Error fetching earthquake data</h4>
+          </div>
+        ) : filteredEarthquakes?.length === 0 ? (
+          <div className="no-earthquakes">
+            <h4>No Earthquakes Found in the Selected Date Range</h4>
+          </div>
+        ) : (
+          filteredEarthquakes?.map((item: EarthquakeFeature) => (
             <div className="items" key={item.id}>
               <button
                 className={`earthquake-click-option${selectedEarthquakeId === item.id ? 'selected' : ''}`}
@@ -267,6 +275,7 @@ const Earthquake = ({
                 }}
               >
                 <div className="earthquake-magnitude">
+                  <span>Magnitude</span>
                   <span>{item.properties.mag}</span>
                 </div>
                 <div className="earthquake-properties">
@@ -290,7 +299,8 @@ const Earthquake = ({
                 </div>
               </button>
             </div>
-          ))}
+          ))
+        )}
       </div>
 
       {/* {selectedEarthquake && (
@@ -305,6 +315,6 @@ const Earthquake = ({
       )} */}
     </div>
   );
-};
+}
 
 export default Earthquake;

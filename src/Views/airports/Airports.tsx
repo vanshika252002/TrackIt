@@ -4,7 +4,7 @@ import { ICONS } from '../../assets';
 import { Data, Airport } from './Types/types';
 import './airports.css';
 
-const Airports = ({ setVisible, setOrigin }: Airport) => {
+function Airports({ setVisible, setOrigin, setWeatherInformation }: Airport) {
   const { data: airports, isLoading } =
     useGetGeolocationByCoordsQuery('airport');
 
@@ -15,7 +15,7 @@ const Airports = ({ setVisible, setOrigin }: Airport) => {
   ).sort((a, b) => a.components.country.localeCompare(b.components.country));
 
   return (
-    <div className="airport-wrappper"  onClick={(e) => e.stopPropagation()}>
+    <div className="airport-wrappper" onClick={(e) => e.stopPropagation()}>
       {isLoading && <Loading />}
       <div className="airport-header">
         <div className="airport-f1">
@@ -30,7 +30,9 @@ const Airports = ({ setVisible, setOrigin }: Airport) => {
         <div className="airport-f2">
           <span>Airport By Country</span>
         </div>
-        <div className="near-by-f1" ><button onClick={()=> setVisible('')}>x</button></div>
+        <div className="near-by-f1">
+          <button onClick={() => setVisible('')}>x</button>
+        </div>
       </div>
       <div className="airport-list-wrapper">
         {uniqueSortedCountries.map((item) => (
@@ -39,6 +41,7 @@ const Airports = ({ setVisible, setOrigin }: Airport) => {
               className="airport-n1"
               onClick={() => {
                 setOrigin(item.components.country);
+                setWeatherInformation(false);
                 setVisible('airport-by-code');
               }}
             >
@@ -54,5 +57,5 @@ const Airports = ({ setVisible, setOrigin }: Airport) => {
       </div>
     </div>
   );
-};
+}
 export default Airports;

@@ -9,8 +9,8 @@ export interface EarthquakeFeature {
   [key: string]: any;
 }
 export interface Props {
-  weatherInformation:boolean,
-  setWeatherInformation:(value:boolean)=>void,
+  weatherInformation: boolean;
+  setWeatherInformation: (value: boolean) => void;
   selectedLocation: {
     id: string;
     lat: number | null;
