@@ -14,7 +14,7 @@
   }
   .flight-place{
     font-size: 2rem;
-    font-weight:600;
+    
     font-family:'Times New Roman', Times, serif;
     text-decoration: underline;
     height:auto;
@@ -65,9 +65,7 @@
     padding-top:5px;
     padding-bottom: 5px;
   }
-  .show-on-map{
-    /* background-color: pink; */
-  }
+
   .show-on-map button{
     width:100%;
   }
@@ -107,7 +105,7 @@
   }
   .fi2 span{
       font-size:20px;
-      font-family:'Open Sans';
+      font-family: 'Open Sans', sans-serif;
   }
   .flightInformation-origin{
     color:black;
@@ -121,14 +119,9 @@ gap:10%}
     display:flex;
     align-items: center;
     justify-content: center;
-    /* background-color: beige; */
+
 }
-.fi-o2{
-/* background-color: azure; */
-}
-  .wrapper-for-flight-information{
-    /* border-bottom: 1px solid black ; */
-  }
+
   .fd{
      height:80vh;
      overflow: scroll;

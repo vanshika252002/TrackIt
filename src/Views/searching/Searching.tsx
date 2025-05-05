@@ -26,8 +26,6 @@ function Searching({ chooseOption }: Props) {
         </div>
       </div>
 
-      {/* {isLoading  && <div className='near-by-loading'> Loading....</div>} */}
-
       <div className="near-by-list-wrapper">
         {matchingFlights?.map((details: Details) => (
           <div className="nearby">

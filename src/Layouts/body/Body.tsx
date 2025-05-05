@@ -144,7 +144,6 @@ function Body({
     if (triggerApi) {
       console.log('Frf');
       triggerEarthquakeQuery({ startTime, endTime });
-      setVisible('');
     }
   }, [triggerApi]);
 

@@ -65,7 +65,7 @@ function Live({
     if (!selectedLocation) {
       setExpandedIcao(null);
     } else {
-      setExpandedIcao(selectedLocation.id); // auto-expand accordion for selected flight
+      setExpandedIcao(selectedLocation.id);
     }
   }, [selectedLocation]);
 
@@ -81,7 +81,7 @@ function Live({
               setSelectedLocation(null);
             }}
           >
-            <img src={ICONS.arrow} />
+            <img src={ICONS.arrow} alt="" />
           </button>
         </div>
         <div className="airport-f2-l1">
@@ -91,7 +91,8 @@ function Live({
           <button
             onClick={() => {
               setVisible('');
-              setClickedLocation(null), setSelectedLocation(null);
+              setClickedLocation(null);
+              setSelectedLocation(null);
               setFlight(false);
             }}
           >
@@ -127,7 +128,7 @@ function Live({
                       >
                         <strong> ICAO Code: {icao}</strong>
                         <div className="accordion-toggle-symbol">
-                          <img src={ICONS.accordianLogo} />
+                          <img src={ICONS.accordianLogo} alt="" />
                         </div>
                       </button>
 
@@ -162,7 +163,7 @@ function Live({
                                   setWeatherInformation(false);
                                 }}
                               >
-                                <img src={ICONS.showonmap} />
+                                <img src={ICONS.showonmap} alt="" />
                                 <span>Show on Map</span>
                               </button>
                             </div>

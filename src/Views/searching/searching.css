@@ -13,7 +13,7 @@
 }
 .weather-searching {
   width: 100%;
-  /* background-color: pink; */
+ 
   background-color: rgb(233, 226, 226);
   height: 40%;
   overflow: scroll;

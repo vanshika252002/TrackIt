@@ -21,6 +21,7 @@ function Footer({
         setFly(false);
         setClickedLocation(null);
         setWeatherInformation(false);
+        setVisible('earthquake-list');
       }}
       onMouseDown={(e) => e.stopPropagation()}
     >
@@ -30,11 +31,11 @@ function Footer({
       >
         <button
           onClick={() => {
-            setAlert(true);
             setVisible('earthquake-list');
+            setAlert(true);
           }}
         >
-          <img src={ICONS.earthquake} />
+          <img src={ICONS.earthquake} alt="" />
           <span>Earthquake</span>
         </button>
       </div>

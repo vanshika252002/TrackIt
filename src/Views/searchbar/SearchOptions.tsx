@@ -35,7 +35,8 @@ function SearchBar({
             onClick={() => {
               console.log('weather searchbar');
               setVisible('weather');
-              setSelectedLocation(null), setClickedLocation(null);
+              setSelectedLocation(null);
+              setClickedLocation(null);
             }}
           >
             <img src={ICONS.weather} />

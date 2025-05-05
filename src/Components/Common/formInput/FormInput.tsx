@@ -30,7 +30,7 @@ const FormInput: React.FC<FormInputProps> = ({
     <div className="form-group">
       <div className="label-with-aestrick">
         <label htmlFor={name}>{label}</label>
-        <label style={{ color: 'red' }}>*</label>
+        <span style={{ color: 'red' }}>*</span>
       </div>
 
       {isPasswordField && enableToggle ? (

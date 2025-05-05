@@ -4,7 +4,7 @@ import './loading.css';
 function Loading() {
   return (
     <div className="loading">
-      <img src={ICONS.loading} />
+      <img src={ICONS.loading} alt="" />
     </div>
   );
 }

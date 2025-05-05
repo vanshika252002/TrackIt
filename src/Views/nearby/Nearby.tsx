@@ -106,7 +106,6 @@ function Nearby({
         </div>
 
         {loading && <p>Getting your location...</p>}
-        {errorMsg && <p>{errorMsg}</p>}
       </div>
     );
   }
@@ -124,7 +123,7 @@ function Nearby({
               setClickedLocation(null);
             }}
           >
-            <img src={ICONS.arrow} />
+            <img src={ICONS.arrow} alt="" />
           </button>
         </div>
         <div className="near-by-f2">
@@ -228,7 +227,7 @@ function Nearby({
                     setWeatherInformation(false);
                   }}
                 >
-                  <img src={ICONS.showonmap} />
+                  <img src={ICONS.showonmap} alt="" />
                   <span>Show on Map</span>
                 </button>
               </div>

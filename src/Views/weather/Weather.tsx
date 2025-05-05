@@ -81,7 +81,7 @@ function Weather({
           }}
         >
           {' '}
-          <img src={ICONS.arrow} />
+          <img src={ICONS.arrow} alt="" />
         </button>
         <div className="w1">
           <span>Weather</span>
@@ -105,6 +105,7 @@ function Weather({
           onChange={(e) => {
             setFlight(false);
             setCity(e.target.value);
+            console.log('g');
             setWeatherInformation(true);
           }}
         />
@@ -133,7 +134,7 @@ function Weather({
               </div>
               <div className="latitude-longitude">
                 <span>
-                  ({location.geometry.lat}, {location.geometry.lng})
+                  {/* ({location.geometry.lat}, {location.geometry.lng}) */}
                 </span>
               </div>
             </button>

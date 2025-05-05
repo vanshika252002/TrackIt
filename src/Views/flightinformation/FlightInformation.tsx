@@ -60,7 +60,7 @@ function FlightInformation({
             }}
             aria-label="Close Flight Information"
           >
-            <img src={ICONS.arrow} />
+            <img src={ICONS.arrow} alt="" />
           </button>
         </div>
         <div className="fi2">
@@ -96,7 +96,7 @@ function FlightInformation({
       {filteredFlights.length > 0 && (
         <div className="fd">
           <div className="flight-place">
-            <img src={ICONS.flightbyroute} />
+            <img src={ICONS.flightbyroute} alt="" />
             <span>
               {origin.charAt(0).toUpperCase() + origin.slice(1).toLowerCase()}
             </span>{' '}
@@ -131,7 +131,7 @@ function FlightInformation({
                     }
                   }}
                 >
-                  <img src={ICONS.showonmap} />
+                  <img src={ICONS.showonmap} alt="" />
                   <span>Show on Map</span>
                 </button>
               </div>

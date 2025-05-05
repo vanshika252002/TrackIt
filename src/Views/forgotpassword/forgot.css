@@ -12,7 +12,7 @@
 .forgot-container {
     width: 320px;
     background: rgba(255, 255, 255, 0.75);
-    /* background: rgba(0, 0, 0, 0.85); */
+ 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -64,7 +64,7 @@
 .forgot-form button {
     width: 100%;
     padding: 10px;
-    margin-top: 10px;
+    
     background: #007bff;
     color: #fff;
     border: none;

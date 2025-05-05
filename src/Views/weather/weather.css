@@ -5,7 +5,7 @@
   width: 280px;
   background-color: rgb(209, 208, 208);
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+ 
 
   font-family: Arial, sans-serif;
   z-index: 1000;
@@ -54,9 +54,7 @@
   margin-top: 8px;
   margin-right: 5px;
 }
-/* .w2 input:hover {
-  border: 2px solid rgb(248, 192, 35);
-} */
+
 .weather-btn button {
   background-color: rgb(50, 47, 47);
   height: 100%;
@@ -118,10 +116,7 @@
   text-align: end;
 }
 
-/* .custom-item:hover {
-  background-color: rgb(248, 192, 35);
-  outline: none;
-} */
+
 
 .weather-details {
   margin-top: 12px;

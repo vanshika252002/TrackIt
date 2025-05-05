@@ -56,26 +56,7 @@
     font-family: 'Open Sans';
   }
   
-  /* @media (max-width: 768px) {
-    .flight-by-route-wrappper {
-      width: 100vw;
-      height: 100vh;
-      padding: 0;
-      border-radius: 0;
-    }
-    .f2 span {
-      font-size: 1rem;
-    }
-    .flight-by-route-origin span {
-      font-size: 25px;
-    }
-    .flight-by-route-header {
-      width: 100vw;
-      margin: 0;
-      border-radius: 0;
-    }
-  }
-   */
+  
   .flight-by-route {
     padding-top: 5%;
     display: flex;
@@ -92,7 +73,7 @@
   
   .flight-by-route-origin span {
     font-size: 1rem;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
   }
   

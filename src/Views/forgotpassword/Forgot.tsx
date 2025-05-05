@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
-// import { forgotPassword } from './Utils/forgot';
 import { useNavigate } from 'react-router-dom';
 import { db, auth } from '../../Components/firebase';
 
@@ -47,7 +46,7 @@ function Forgot() {
   return (
     <div className="forgot-page-wrapper">
       <div className="login-image">
-        <img src={ICONS.login} />
+        <img src={ICONS.login} alt="" />
       </div>
       <div className="forgot-container">
         <div className="forgot-form">
