@@ -5,7 +5,7 @@ type DraggableWrapperProps = {
 };
 
 const DraggableWrapper: React.FC<DraggableWrapperProps> = ({ children }) => {
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLButtonElement | null>(null);
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 10, y: 10 });
 
@@ -33,7 +33,7 @@ const DraggableWrapper: React.FC<DraggableWrapperProps> = ({ children }) => {
     };
   }, [dragging]);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setDragging(true);
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
@@ -42,7 +42,7 @@ const DraggableWrapper: React.FC<DraggableWrapperProps> = ({ children }) => {
   };
 
   return (
-    <div
+    <button
       ref={wrapperRef}
       onMouseDown={handleMouseDown}
       style={{
@@ -55,7 +55,7 @@ const DraggableWrapper: React.FC<DraggableWrapperProps> = ({ children }) => {
       }}
     >
       {children}
-    </div>
+    </button>
   );
 };
 

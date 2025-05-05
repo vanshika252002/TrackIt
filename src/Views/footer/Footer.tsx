@@ -10,23 +10,20 @@ function Footer({
   setClickedLocation,
   setWeatherInformation,
   setTriggerApi,
-}: FooterProps) {
+}: Readonly<FooterProps>) {
   return (
-    <div
-      className="footer"
-      onClick={(e) => {
-        e.stopPropagation();
-        setTriggerApi(true);
-        setFlight(false);
-        setFly(false);
-        setClickedLocation(null);
-        setWeatherInformation(false);
-        setVisible('earthquake-list');
-      }}
-      onMouseDown={(e) => e.stopPropagation()}
-    >
-      <div
+    <div className="footer">
+      <button
         className="mini-map-option2"
+        onClick={(e) => {
+          e.stopPropagation();
+          setTriggerApi(true);
+          setFlight(false);
+          setFly(false);
+          setClickedLocation(null);
+          setWeatherInformation(false);
+          setVisible('earthquake-list');
+        }}
         onMouseDown={(e) => e.stopPropagation()}
       >
         <button
@@ -38,7 +35,7 @@ function Footer({
           <img src={ICONS.earthquake} alt="" />
           <span>Earthquake</span>
         </button>
-      </div>
+      </button>
     </div>
   );
 }

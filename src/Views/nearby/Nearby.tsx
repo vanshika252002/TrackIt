@@ -3,7 +3,8 @@ import { useLazyGetAllFlightsQuery } from '../../Services/Api/liveflight';
 
 import Loading from '../loading';
 
-import { NearbyFlight, Details, NearbyProps } from './Types/types';
+import { NearbyFlight, Details } from './Types/types';
+import { Props } from '../live/Types/types';
 import { getDistanceFromLatLonInKm } from './Util/Util';
 import { ICONS } from '../../assets';
 import './nearby.css';
@@ -17,7 +18,7 @@ function Nearby({
   setFly,
   setFlyToTarget,
   setClickedLocation,
-}: NearbyProps) {
+}: Readonly<Props>) {
   const selectedFlightId = selectedLocation?.id ?? null;
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
@@ -27,8 +28,9 @@ function Nearby({
   const FlightDetails = liveflight?.states || null;
 
   const [loading, setLoading] = useState(true);
+  const [askForLocation, setAskForLocation] = useState(true);
 
-  useEffect(() => {
+  const requestLocation = () => {
     if (!navigator.geolocation) {
       setErrorMsg('Geolocation is not supported by your browser.');
       setLoading(false);
@@ -58,7 +60,7 @@ function Nearby({
         setLoading(false);
       }
     );
-  }, []);
+  };
 
   useEffect(() => {
     if (lat !== null && lon !== null) {
@@ -81,7 +83,7 @@ function Nearby({
       return distance <= 500 ? { details, distance } : null;
     })
       .filter(Boolean)
-      .sort((a: NearbyFlight, b: NearbyFlight) => a!.distance - b!.distance);
+      .sort((a: NearbyFlight, b: NearbyFlight) => a.distance - b.distance);
   }, [FlightDetails, lat, lon]);
 
   if (errorMsg) {
@@ -111,7 +113,7 @@ function Nearby({
   }
 
   return (
-    <div className="near-by-wrappper" onClick={(e) => e.stopPropagation()}>
+    <div className="near-by-wrappper">
       <div className="near-by-header">
         {flightLoading && <Loading />}
         <div className="near-by-f1">
@@ -129,6 +131,7 @@ function Nearby({
         <div className="near-by-f2">
           <span>Nearby Flights</span>
         </div>
+
         <div className="near-by-f1">
           <button
             onClick={() => {
@@ -143,6 +146,19 @@ function Nearby({
         </div>
       </div>
 
+      {askForLocation && (
+        <div className="location-prompt">
+          <p>This feature requires your location to find nearby flights.</p>
+          <button
+            onClick={() => {
+              setAskForLocation(false);
+              requestLocation();
+            }}
+          >
+            Allow Location Access
+          </button>
+        </div>
+      )}
       {liveflight?.states === null && (
         <div className="fi-no-results"> Data is not Available right now </div>
       )}

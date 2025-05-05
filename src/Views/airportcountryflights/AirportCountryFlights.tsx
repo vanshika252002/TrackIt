@@ -15,7 +15,7 @@ function AirportCountryFlights({
   setFlight,
   setFly,
   setFlyToTarget,
-}: AirportCountryFlightsProps) {
+}: Readonly<AirportCountryFlightsProps>) {
   const [expandedIcao, setExpandedIcao] = useState<string | null>(null);
   const selectedFlightId = selectedLocation?.id ?? null;
   const toggleAccordion = (icaoCode: string) => {
@@ -31,15 +31,12 @@ function AirportCountryFlights({
     if (!selectedLocation) {
       setExpandedIcao(null);
     } else {
-      setExpandedIcao(selectedLocation.id); // auto-expand accordion for selected flight
+      setExpandedIcao(selectedLocation.id);
     }
   }, [selectedLocation]);
 
   return (
-    <div
-      className="country-flight-wrappper"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="country-flight-wrappper">
       {isLoading && <Loading />}
 
       <div className="country-flight-header">
@@ -52,7 +49,7 @@ function AirportCountryFlights({
               setClickedLocation(null);
             }}
           >
-            <img src={ICONS.arrow} />
+            <img src={ICONS.arrow} alt="Back" />
           </button>
         </div>
         <div className="country-flight-f2">
@@ -125,7 +122,7 @@ function AirportCountryFlights({
                   <div
                     className={`accordion-toggle-symbol ${isExpanded ? 'open' : ''}`}
                   >
-                    <img src={ICONS.accordianLogo} />
+                    <img src={ICONS.accordianLogo} alt="Expand" />
                   </div>
                 </button>
 
@@ -157,7 +154,7 @@ function AirportCountryFlights({
                             }
                           }}
                         >
-                          <img src={ICONS.showonmap} />
+                          <img src={ICONS.showonmap} alt="showOnMap" />
                           <span>Show on Map</span>
                         </button>
                       </div>

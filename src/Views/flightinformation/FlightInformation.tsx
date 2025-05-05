@@ -14,7 +14,7 @@ function FlightInformation({
   setFly,
   setFlyToTarget,
   setClickedLocation,
-}: FlightInformationProps) {
+}: Readonly<FlightInformationProps>) {
   const { data: liveflight, isLoading } = useGetAllFlightsQuery(null);
 
   const FlightDetails: FlightDetail[] =
@@ -45,10 +45,7 @@ function FlightInformation({
   console.log('filtered flights', filteredFlights);
 
   return (
-    <div
-      className="flightInformation-wrapper"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="flightInformation-wrapper">
       <div className="flightInformation-header">
         <div className="fi1">
           <button

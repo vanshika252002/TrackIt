@@ -8,7 +8,7 @@ function FlightByRoute({
   setWeatherInformation,
   setVisible,
   setOrigin,
-}: RouteProps) {
+}: Readonly<RouteProps>) {
   const [originInput, setOriginInput] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,19 +25,16 @@ function FlightByRoute({
   };
 
   return (
-    <div
-      className="flight-by-route-wrappper"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="flight-by-route-wrappper">
       <div className="flight-by-route-header">
-        <div
-          className="f1"
-          onClick={() => {
-            setVisible('searchbar');
-          }}
-        >
-          <button aria-label="Close Flight By Route">
-            <img src={ICONS.arrow} />
+        <div className="f1">
+          <button
+            aria-label="Close Flight By Route"
+            onClick={() => {
+              setVisible('searchbar');
+            }}
+          >
+            <img src={ICONS.arrow} alt="Back" />
           </button>
         </div>
         <div className="f2">

@@ -20,12 +20,12 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ name, label }) => {
           type={showPassword ? 'text' : 'password'}
           className="password-input-field"
         />
-        <span
+        <button
           className="password-toggle-icon"
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-        </span>
+        </button>
       </div>
       <ErrorMessage name={name}>
         {(msg) => <div className="error-message">{msg}</div>}

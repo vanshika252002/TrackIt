@@ -15,11 +15,6 @@ function Forgot() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const handleForgotPassword = async () => {
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      toast.error('Please enter a valid email address.');
-      return;
-    }
-
     try {
       const usersRef = collection(db, 'users');
       const q = query(usersRef, where('email', '==', email));
@@ -37,11 +32,8 @@ function Forgot() {
           position: 'top-right',
         });
       }
-      console.log(error);
     }
   };
-
-  console.log('ew');
 
   return (
     <div className="forgot-page-wrapper">
@@ -53,10 +45,10 @@ function Forgot() {
           <h2>Reset your Password</h2>
         </div>
         <div className="forgot-label">
-          <label>
+          <span>
             Enter your user account's verified email address and we will send
             you a password reset link.
-          </label>
+          </span>
         </div>
         <div className="forgot-input">
           <Input

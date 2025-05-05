@@ -14,8 +14,8 @@ interface ValuesLogin {
 }
 
 export const initialValues = {
-  email: localStorage.getItem('userEmail') || '',
-  password: localStorage.getItem('userPassword') || '',
+  email: localStorage.getItem('userEmail') ?? '',
+  password: localStorage.getItem('userPassword') ?? '',
   rememberMe: !!(
     localStorage.getItem('userEmail') && localStorage.getItem('userPassword')
   ),

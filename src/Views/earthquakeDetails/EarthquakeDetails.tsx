@@ -8,13 +8,10 @@ function EarthquakeDetails({
   lon,
   setSelectedEarthquake,
   depth,
-}: Earthquake) {
+}: Readonly<Earthquake>) {
   console.log('displayed');
   return (
-    <div
-      className="earthquake-details-wrapper"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="earthquake-details-wrapper">
       <div className="earthquake-content-header">{place}</div>
       <div className="details-in-body">
         <div className="time-detail">

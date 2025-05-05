@@ -44,12 +44,12 @@ const FormInput: React.FC<FormInputProps> = ({
             value={value}
             className="form-input"
           />
-          <span
+          <button
             className="eye-toggle-icon"
             onClick={() => setShowPassword?.(!showPassword)}
           >
             {showPassword ? <Eye size={18} /> : <EyeClosed size={18} />}
-          </span>
+          </button>
         </div>
       ) : (
         <Field

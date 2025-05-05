@@ -37,7 +37,7 @@ export const validationSchema = Yup.object({
       /[!@#$%^&*()<>?:"{}]/,
       'Must contain at least one special character'
     )
-    .matches(/[0-9]/, 'Must contain at least one number'),
+    .matches(/\d/, 'Must contain at least one number'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref(DATA.Password)], DATA.PasswordMatching)
     .required(DATA.ConfirmPasswordRequired),

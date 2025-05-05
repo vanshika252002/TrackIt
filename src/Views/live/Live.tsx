@@ -14,7 +14,7 @@ function Live({
   setFlyToTarget,
   setClickedLocation,
   selectedLocation,
-}: Props) {
+}: Readonly<Props>) {
   const selectedFlightId = selectedLocation?.id ?? null;
 
   const { data: LiveFlights } = useGetAllFlightsQuery(null);
@@ -53,7 +53,7 @@ function Live({
 
     const sortedGroupedFlights: Record<string, FlightData[]> = {};
     Object.keys(groupedFlights)
-      .sort()
+      .sort((a, b) => a.localeCompare(b))
       .forEach((country) => {
         sortedGroupedFlights[country] = groupedFlights[country];
       });
@@ -70,7 +70,7 @@ function Live({
   }, [selectedLocation]);
 
   return (
-    <div className="airport-wrappper-l1" onClick={(e) => e.stopPropagation()}>
+    <div className="airport-wrappper-l1">
       <div className="airport-header-l1">
         <div className="airport-f1-l1">
           <button
@@ -133,12 +133,12 @@ function Live({
                       </button>
 
                       <div className="acc-content-l1">
-                        {isExpanded && !lat && !lon && (
+                        {isExpanded && (lat == null || lon == null) && (
                           <div className="accordion-content-l1">
                             <h2>No Live Flight</h2>
                           </div>
                         )}
-                        {isExpanded && lat && lon && (
+                        {isExpanded && lat != null && lon != null && (
                           <div className="accordion-content-l1">
                             <div className="acc-btn">
                               <button

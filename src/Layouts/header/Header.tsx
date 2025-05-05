@@ -1,16 +1,15 @@
-import { useState } from 'react'; // third-party
-// import { useLazyGetWeatherByCoordsQuery } from '../../Services/Api/weather';
+import { useState } from 'react';
 
 import SearchBar from '../../Views/searchbar/SearchOptions';
 import Weather from '../../Views/weather/Weather';
 import FlightByRoute from '../../Views/flightbyroute';
 import FlightInformation from '../../Views/flightinformation';
-import Nearby from '../../Views/nearby'; // components
+import Nearby from '../../Views/nearby';
 import Airports from '../../Views/airports';
 import AirportCountryFlights from '../../Views/airportcountryflights';
 import Live from '../../Views/live';
 
-import { Props } from './Types/types'; // types+css
+import { Props } from './Types/types';
 import { ICONS } from '../../assets';
 import './header.css';
 import Confirmation from '../../Views/confirmation';
@@ -27,12 +26,7 @@ function Header({
   setFly,
   setFlyToTarget,
   selectedLocation,
-}: Props) {
-  // const [filterData, setFilterData] = useState({
-  //   origin: null,
-  //   country:null,
-  //   code: null
-  // });
+}: Readonly<Props>) {
   const [logout, setLogout] = useState<boolean>(false);
 
   const [origin, setOrigin] = useState('');
@@ -41,27 +35,6 @@ function Header({
     setLogout(true);
   };
 
-  // const inputRef = useRef<HTMLDivElement>(null);
-  // const inputRef1 = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   function handleClickOutside(event: MouseEvent) {
-  //     if (
-  //       !inputRef.current?.contains(event.target as Node) &&
-  //       visible != 'earthquake-list'
-  //     ) {
-  //       setVisible('');
-  //       setFly(false);
-  //       setSelectedLocation(null);
-
-  //       setClickedLocation(null);
-  //     }
-  //   }
-  //   document.addEventListener('click', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, [visible]);
-
   return (
     <div className="h1">
       <div className="h2">
@@ -69,19 +42,19 @@ function Header({
       </div>
       <div className="h5">
         <div className="refrence-to-options">
-          <div
+          <button
             className="h7"
             onClick={() => {
-              setVisible('searchbar'), setAlert(false);
+              setVisible('searchbar');
+              setAlert(false);
             }}
           >
             {
               <div className="h3">
                 <img src={ICONS.searching} alt="Search Icon" />
-                {/* <span>Search</span> */}
               </div>
             }
-          </div>
+          </button>
           {visible == 'searchbar' && (
             <SearchBar
               setVisible={setVisible}

@@ -71,6 +71,7 @@ function MapClickHandler({ setClickedLocation }: any) {
   });
   return null;
 }
+
 function Body({
   weatherInformation,
   setWeatherInformation,
@@ -88,7 +89,7 @@ function Body({
   flyToTarget,
 
   setFly,
-}: Props) {
+}: Readonly<Props>) {
   const dispatch = useDispatch();
 
   const chooseOption = {
@@ -130,25 +131,12 @@ function Body({
     }
   }, [liveflight]);
 
-  // useEffect(() => {
-  //   if (startTime && endTime) {
-  //     console.log("Gtg")
-  //     if ( visible === 'earthquake-list') {
-  //       triggerEarthquakeQuery({ startTime, endTime });
-  //       setClickedLocationEarthquake(null);
-  //     }
-  //   }
-  // }, [startTime, endTime]);
-
   useEffect(() => {
     if (triggerApi) {
       console.log('Frf');
       triggerEarthquakeQuery({ startTime, endTime });
     }
   }, [triggerApi]);
-
-  // console.log("earthquakeData",earthquakeData);
-  // console.log('selected angle is', selectedLocation?.angle);
 
   useEffect(() => {
     if (clickedLocation) {
@@ -198,6 +186,51 @@ function Body({
       }
     }
   }, [FlightDetails]);
+
+  function renderPopupContent() {
+    if (popupLoading) {
+      return (
+        <div className="popup1">
+          <h2>Loading..</h2>
+        </div>
+      );
+    }
+
+    if (weather && geo) {
+      const location =
+        geo?.results[0]?.annotations?.flag ??
+        (geo?.results[0]?.components as any)?.city ??
+        (geo?.results[0]?.components as any)?.state ??
+        (geo?.results[0]?.components as any)?.country ??
+        (geo?.results[0]?.components as any)?.body_of_water ??
+        geo?.results[0]?.formatted ??
+        'Location yet to be discovered 🌍';
+
+      return (
+        <div className="popup">
+          <h2>{location}</h2>
+          <br />
+          <span>
+            <strong>Weather:</strong> {weather.weather[0].description}
+          </span>
+          <br />
+          <span>
+            <strong>Temperature:</strong> {weather.main.temp}°C
+          </span>
+          <br />
+          <span>
+            <strong>Humidity:</strong> {weather.main.humidity}%
+          </span>
+          <br />
+          <span>
+            <strong>Wind Speed:</strong> {weather.wind.speed} m/s
+          </span>
+        </div>
+      );
+    }
+
+    return <span>No data available.</span>;
+  }
 
   return (
     <div className="linear-gradient-body">
@@ -264,8 +297,8 @@ function Body({
                           lon: details[5],
                           angle: details[10],
                           origin: details[2],
-                        }),
-                          setClickedLocation(null);
+                        });
+                        setClickedLocation(null);
                       },
                     }}
                   >
@@ -291,7 +324,7 @@ function Body({
             position={[selectedLocation.lat, selectedLocation.lon]}
             icon={createFlightIcon('red', 42)}
             zIndexOffset={1000}
-            rotationAngle={selectedLocation.angle || 0}
+            rotationAngle={selectedLocation.angle ?? 0}
             rotationOrigin="center center "
             eventHandlers={{
               click: () => {
@@ -363,50 +396,10 @@ function Body({
             )}
           </>
         )}
-        {/* {fly && flyToTarget && <FlyToTarget flyToTarget={flyToTarget} />}  */}
 
         {weatherInformation && clickedLocation && (
           <Popup position={clickedLocation}>
-            <div>
-              {popupLoading ? (
-                <div className="popup1">
-                  <h2>Loading..</h2>
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              ) : weather && geo ? (
-                <div className="popup">
-                  <h2>
-                    {geo?.results[0]?.annotations?.flag}{' '}
-                    {(geo?.results[0]?.components as any)?.city ||
-                      (geo?.results[0]?.components as any)?.state ||
-                      (geo?.results[0]?.components as any)?.country ||
-                      (geo?.results[0]?.components as any)?.body_of_water ||
-                      geo?.results[0]?.formatted ||
-                      'Location yet to be discovered 🌍'}
-                  </h2>
-                  <br />
-                  <span>
-                    <strong>Weather:</strong> {weather.weather[0].description}
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Temperature:</strong> {weather.main.temp}°C
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Humidity:</strong> {weather.main.humidity}%
-                  </span>
-                  <br />
-                  <span>
-                    <strong>Wind Speed:</strong> {weather.wind.speed} m/s
-                  </span>
-                </div>
-              ) : (
-                <span>No data available.</span>
-              )}
-            </div>
+            <div>{renderPopupContent()}</div>
           </Popup>
         )}
 

@@ -8,6 +8,13 @@ import { Input } from '../../Components/Common';
 import { Weatherprops } from './Types/types';
 import { ICONS } from '../../assets';
 import './weather.css';
+interface Location {
+  formatted: string;
+  geometry: {
+    lat: number;
+    lng: number;
+  };
+}
 
 function Weather({
   setFlight,
@@ -17,11 +24,11 @@ function Weather({
   setFly,
   setFlyToTarget,
   clickedLocation,
-}: Weatherprops) {
+}: Readonly<Weatherprops>) {
   const [city, setCity] = useState('');
   const [locations, setLocations] = useState([]);
   const debouncedCity = useDebounce(city, 400);
-  const [selectedWeather, setSelectedWeather] = useState<any | null>(null);
+  const [selectedWeather, setSelectedWeather] = useState<Location | null>(null);
   const [triggerGeolocationQuery, { data, isLoading }] =
     useLazyGetGeolocationByCoordsQuery();
   useEffect(() => {
@@ -40,7 +47,7 @@ function Weather({
       setLocations([]);
     }
     setClickedLocation(null);
-    setSelectedWeather(false);
+    setSelectedWeather(null);
   }, [data]);
 
   useEffect(() => {
@@ -68,10 +75,7 @@ function Weather({
   };
 
   return (
-    <div
-      className="weather-container-wrapper"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="weather-container-wrapper">
       <div className="weather-btn">
         <button
           onClick={() => {
@@ -123,19 +127,14 @@ function Weather({
           </div>
         )}
         <div className="scroll-weather">
-          {locations.map((location: any, index: number) => (
+          {locations.map((location: any) => (
             <button
-              key={index}
+              key={`${location.geometry.lat}-${location.geometry.lng}`}
               className={`custom-item${selectedWeather && selectedWeather.geometry.lat === location.geometry.lat && selectedWeather.geometry.lng === location.geometry.lng ? 'selected' : ''}`}
               onClick={() => handleLocationClick(location)}
             >
               <div className="Location">
                 <strong>{location.formatted}</strong>
-              </div>
-              <div className="latitude-longitude">
-                <span>
-                  {/* ({location.geometry.lat}, {location.geometry.lng}) */}
-                </span>
               </div>
             </button>
           ))}
