@@ -7,3 +7,12 @@ export interface Weatherprops {
   setWeatherInformation: (value: boolean) => void;
   setFlight: (value: boolean) => void;
 }
+
+export interface WeatherInfo {
+  temperature: number;
+  description: string;
+  icon: string;
+  humidity: number;
+  windSpeed: number;
+
+}

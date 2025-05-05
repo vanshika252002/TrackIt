@@ -2,7 +2,7 @@ import PrivateLayout from './Private/PrivateLayout';
 import PublicLayout from './Public/PublicLayout';
 import { AppLayoutProps } from './AppLayout.d';
 
-function AppLayout({ isAuthenticated, children }: AppLayoutProps) {
+function AppLayout({ isAuthenticated, children }: Readonly<AppLayoutProps>) {
   return (
     <div>
       {isAuthenticated ? (

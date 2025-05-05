@@ -1,11 +1,4 @@
-/* Ensure the entire page has height */
-/* html, body, #root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-} */
 
-/* Make the MapContainer fill the screen */
 html,
 body,
 #root {
@@ -14,8 +7,7 @@ body,
   padding: 0;
 }
 
-.map-view {
-}
+
 .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
   bottom: 1px;
   touch-action: none;
@@ -88,7 +80,7 @@ body,
   display: inline;
   font-size: 14px;
   line-height: 1.4;
-  white-space: nowrap; /* Optional: prevents line break if space is tight */
+  white-space: nowrap; 
 }
 .linear-gradient-body {
   padding: 0;
@@ -113,24 +105,20 @@ body,
   height: 100vh;
   width: 100vw;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0); /* Transparent but clickable */
+  background-color: rgba(0, 0, 0, 0); 
   pointer-events: all !important;
 }
 
 .my-custom-marker-class {
   position: absolute;
-  /* animation: moveMarker 1s ease-in-out forwards; */
+
   will-change: left, top;
-  /* transition: 60s ease !important; */
+  
 }
 
-/* 
-
-
-*/
 
 .flight-wrapper {
-  /* transition: 60s ease !important; */
+
   transform-origin: center center;
 }
 

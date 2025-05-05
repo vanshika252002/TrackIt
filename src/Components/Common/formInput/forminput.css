@@ -11,16 +11,19 @@
      
      .form-input {
        width: 100%;
-       padding: 8px 36px 8px 10px; /* leave space for the icon */
+       padding: 8px 36px 8px 10px; 
        box-sizing: border-box;
      }
      
      .eye-toggle-icon {
        position: absolute;
-       right: 20px;
+       right: 7px;
        top: 50%;
        transform: translateY(-50%);
        cursor: pointer;
        color: #888;
+       background-color: white;
+       border: none;
+       align-self:end;
      }
      

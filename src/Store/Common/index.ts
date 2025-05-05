@@ -10,7 +10,7 @@ const common = createSlice({
     }),
   },
 });
-// console.log('common reducers ', common.reducer);
+
 
 export const { updateAuthTokenRedux } = common.actions;
 

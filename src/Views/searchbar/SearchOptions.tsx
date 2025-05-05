@@ -7,7 +7,7 @@ function SearchBar({
   setSelectedLocation,
 
   setClickedLocation,
-}: SearchbarProps) {
+}: Readonly<SearchbarProps>) {
   return (
     <div className="searchbar-wrapper">
       <div className="search_shortcuts">
@@ -25,59 +25,60 @@ function SearchBar({
         </div>
       </div>
 
-      <div className="searchbar-options">
-        <ul
-          onClick={(e) => {
-            e.stopPropagation();
+      <button
+        className="searchbar-options"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <button
+          onClick={() => {
+            console.log('weather searchbar');
+            setVisible('weather');
+            setSelectedLocation(null);
+            setClickedLocation(null);
           }}
         >
-          <li
-            onClick={() => {
-              console.log('weather searchbar');
-              setVisible('weather');
-              setSelectedLocation(null);
-              setClickedLocation(null);
-            }}
-          >
-            <img src={ICONS.weather} />
-            Weather
-          </li>
-          <li
-            onClick={() => {
-              setVisible('flight-by-route');
-              setClickedLocation(null);
-            }}
-          >
-            <img src={ICONS.flightroute} />
-            Flight by route
-          </li>
-          <li
-            onClick={() => {
-              setVisible('live-flight');
-              setClickedLocation(null);
-            }}
-          >
-            <img src={ICONS.liveairplane} />
-            LIVE flight by airplane
-          </li>
-          <li
-            onClick={() => {
-              setVisible('airports');
-              setClickedLocation(null);
-            }}
-          >
-            <img src={ICONS.airports} /> Airports
-          </li>
-          <li
-            onClick={() => {
-              setVisible('nearby');
-              setClickedLocation(null);
-            }}
-          >
-            <img src={ICONS.nearby} /> Nearby Flights
-          </li>
-        </ul>
-      </div>
+          <img src={ICONS.weather} alt="weather" />
+          <span>Weather</span>
+        </button>
+        <button
+          onClick={() => {
+            setVisible('flight-by-route');
+            setClickedLocation(null);
+          }}
+        >
+          <img src={ICONS.flightroute} alt="flight by route" />
+          <span>Flight by route</span>
+        </button>
+        <button
+          onClick={() => {
+            setVisible('live-flight');
+            setClickedLocation(null);
+          }}
+        >
+          <img src={ICONS.liveairplane} alt="live" />
+          <span>LIVE flight by airplane</span>
+        </button>
+        <button
+          onClick={() => {
+            setVisible('airports');
+            setClickedLocation(null);
+          }}
+        >
+          <img src={ICONS.airports} alt="Airports" />
+          <span>Airports</span>
+        </button>
+        <button
+          onClick={() => {
+            setVisible('nearby');
+            setClickedLocation(null);
+          }}
+        >
+          <img src={ICONS.nearby} alt="Nearby Flights" />
+          <span>Nearby Flights</span>
+        </button>
+      </button>
     </div>
   );
 }

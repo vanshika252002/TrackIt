@@ -18,7 +18,7 @@ function Button({
   showImage,
   imageSrc,
   altText = 'button image',
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   return (
     <button
       onClick={onClick}

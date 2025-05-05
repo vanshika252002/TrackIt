@@ -32,9 +32,7 @@
    margin-top:5px;
 
 }
-.h4{
-    background-color: transparent;
-}
+
 .h5{
     width:45%;
     display: flex;
@@ -106,8 +104,11 @@ border:none;
     flex-direction: column;
      justify-content: center;
       align-items: center;
-
-    }
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+  }
+    
 
     .weather-details-ww{
         

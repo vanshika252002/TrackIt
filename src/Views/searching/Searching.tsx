@@ -2,7 +2,7 @@ import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import { Props, Details } from './Types/types';
 import './searching.css';
 
-function Searching({ chooseOption }: Props) {
+function Searching({ chooseOption }: Readonly<Props>) {
   const { searching } = chooseOption;
   const { searchedData, setSearchingVisible } = searching;
   const place = searchedData.trim().toLowerCase();
@@ -28,7 +28,7 @@ function Searching({ chooseOption }: Props) {
 
       <div className="near-by-list-wrapper">
         {matchingFlights?.map((details: Details) => (
-          <div className="nearby">
+          <div className="nearby" key={details[0]}>
             <div className="n11">
               <h2>{details[2]}</h2>
             </div>

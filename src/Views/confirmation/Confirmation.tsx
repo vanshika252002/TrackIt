@@ -8,13 +8,13 @@ import { ICONS } from '../../assets';
 interface Props {
   setLogout: (value: boolean) => void;
 }
-function Confirmation({ setLogout }: Props) {
+function Confirmation({ setLogout }: Readonly<Props>) {
   const dispatch = useDispatch();
   console.log('confirmation');
   return (
     <div className="place-order-container">
       <div className="place-order">
-        <img src={ICONS.powerbtn} />
+        <img src={ICONS.powerbtn} alt="powerbtn" />
         <h2> Sign out </h2>
         <span className="place-order-span">
           Signing out will end your session <br />

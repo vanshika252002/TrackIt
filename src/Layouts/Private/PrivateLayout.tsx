@@ -1,15 +1,12 @@
 import { AppLayoutProps } from '../AppLayout.d';
 import Navbar from '../Public/Navbar';
-// import Body from '../../../Views/body/Body';
-// import Body from '../../../Views/body/Body';
 
-function PrivateLayout({ children }: AppLayoutProps): JSX.Element {
+function PrivateLayout({ children }: Readonly<AppLayoutProps>): JSX.Element {
   return (
     <>
       <Navbar />
 
       {children}
-      {/* <Footer /> */}
     </>
   );
 }

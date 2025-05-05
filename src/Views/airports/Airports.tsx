@@ -4,7 +4,11 @@ import { ICONS } from '../../assets';
 import { Data, Airport } from './Types/types';
 import './airports.css';
 
-function Airports({ setVisible, setOrigin, setWeatherInformation }: Airport) {
+function Airports({
+  setVisible,
+  setOrigin,
+  setWeatherInformation,
+}: Readonly<Airport>) {
   const { data: airports, isLoading } =
     useGetGeolocationByCoordsQuery('airport');
 
@@ -15,7 +19,7 @@ function Airports({ setVisible, setOrigin, setWeatherInformation }: Airport) {
   ).sort((a, b) => a.components.country.localeCompare(b.components.country));
 
   return (
-    <div className="airport-wrappper" onClick={(e) => e.stopPropagation()}>
+    <div className="airport-wrappper">
       {isLoading && <Loading />}
       <div className="airport-header">
         <div className="airport-f1">
@@ -24,7 +28,7 @@ function Airports({ setVisible, setOrigin, setWeatherInformation }: Airport) {
               setVisible('searchbar');
             }}
           >
-            <img src={ICONS.arrow} />
+            <img src={ICONS.arrow} alt="Back" />
           </button>
         </div>
         <div className="airport-f2">

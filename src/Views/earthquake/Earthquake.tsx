@@ -6,17 +6,15 @@ import { useDebounce } from '../../Shared/Utils';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './earthquake.css';
-// import EarthquakeDetails from '../earthquakeDetails';
-// import DraggableWrapper from '../Draggable/Draggable';
 
 import { EarthquakeProps, EarthquakeFeature } from './Types/types';
 import Loading from '../loading';
 
 const CustomDatePickerInput = React.forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   { value?: string; onClick?: () => void; placeholder?: string }
 >(({ value, onClick, placeholder }, ref) => (
-  <div
+  <button
     onClick={onClick}
     ref={ref}
     className="datepicker-custom-input"
@@ -29,8 +27,8 @@ const CustomDatePickerInput = React.forwardRef<
       minWidth: '120px',
     }}
   >
-    {value || <span style={{ color: '#aaa' }}>{placeholder}</span>}
-  </div>
+    {value ?? <span style={{ color: '#aaa' }}>{placeholder}</span>}
+  </button>
 ));
 
 function Earthquake({
@@ -45,7 +43,7 @@ function Earthquake({
   setFlyToTarget,
 
   setClickedLocation,
-}: EarthquakeProps) {
+}: Readonly<EarthquakeProps>) {
   const [dateError, setDateError] = useState('');
   const [isStartDateOpen, setIsStartDateOpen] = useState(false);
   const [isEndDateOpen, setIsEndDateOpen] = useState(false);
@@ -70,21 +68,6 @@ function Earthquake({
       document.body.removeEventListener('wheel', preventScroll);
     };
   }, [isStartDateOpen, isEndDateOpen]);
-  // const inputRef1 = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   function handleClickOutside(event: MouseEvent) {
-  //     if (!inputRef1.current?.contains(event.target as Node)) {
-  //       setVisible('');
-  //       setFly(false);
-  //       setAlert(false);
-  //       setClickedLocationEarthquake(null);
-  //     }
-  //   }
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, [visible]);
 
   const formatDate = (date: Date): string => {
     if (!(date instanceof Date) || isNaN(date.getTime())) return '';
@@ -126,11 +109,6 @@ function Earthquake({
   const formattedStartTime = startTime ? parseDateString(startTime) : null;
   const formattedEndTime = endTime ? parseDateString(endTime) : null;
 
-  // const Timestamp = (timestamp: number) => {
-  //   const date = new Date(timestamp);
-  //   date.setMinutes(date.getMinutes() + 330);
-  //   return date.toISOString().replace('T', ' ').slice(0, 19) + '(UTC+05:30)';
-  // };
   const filteredEarthquakes = earthquakeData?.features?.filter(
     (item: EarthquakeFeature) => {
       if (!startTime || !endTime) return true;
@@ -142,7 +120,7 @@ function Earthquake({
   );
 
   return (
-    <div className="earthquake-wrapper" onClick={(e) => e.stopPropagation()}>
+    <div className="earthquake-wrapper">
       <div className="earthquake-header">
         <button
           onClick={() => {
@@ -237,17 +215,27 @@ function Earthquake({
       {dateError && <div className="date-error-1">{dateError}</div>}
 
       <div className="earthquake-list">
-        {isLoading || isFetching ? (
-          <Loading />
-        ) : error ? (
+        {isLoading || (isFetching && <Loading />)}
+
+        {error && (
           <div className="no-earthquakes">
             <h4>Error fetching earthquake data</h4>
           </div>
-        ) : filteredEarthquakes?.length === 0 ? (
-          <div className="no-earthquakes">
-            <h4>No Earthquakes Found in the Selected Date Range</h4>
-          </div>
-        ) : (
+        )}
+
+        {filteredEarthquakes?.length === 0 &&
+          !isLoading &&
+          !isFetching &&
+          !error && (
+            <div className="no-earthquakes">
+              <h4>No Earthquakes Found in the Selected Date Range</h4>
+            </div>
+          )}
+
+        {filteredEarthquakes?.length > 0 &&
+          !isLoading &&
+          !isFetching &&
+          !error &&
           filteredEarthquakes?.map((item: EarthquakeFeature) => (
             <div className="items" key={item.id}>
               <button
@@ -258,7 +246,6 @@ function Earthquake({
                     setClickedLocationEarthquake(null);
                   } else {
                     setSelectedEarthquakeId(item.id);
-
                     setFly(true);
                     setClickedLocation(null);
                     setFlyToTarget([
@@ -299,20 +286,8 @@ function Earthquake({
                 </div>
               </button>
             </div>
-          ))
-        )}
+          ))}
       </div>
-
-      {/* {selectedEarthquake && (
-        <EarthquakeDetails
-          setSelectedEarthquake={setSelectedEarthquake}
-          place={selectedEarthquake.properties.place}
-          time={Timestamp(selectedEarthquake.properties.time)}
-          lat={selectedEarthquake.geometry.coordinates[1]}
-          lon={selectedEarthquake.geometry.coordinates[0]}
-          depth={selectedEarthquake.geometry.coordinates[2]}
-        />
-      )} */}
     </div>
   );
 }

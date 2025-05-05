@@ -22,8 +22,8 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('userEmail') || '';
-    const storedPassword = localStorage.getItem('userPassword') || '';
+    const storedEmail = localStorage.getItem('userEmail') ?? '';
+    const storedPassword = localStorage.getItem('userPassword') ?? '';
     const rememberMe = !!(storedEmail && storedPassword);
     setFormValues({
       email: storedEmail,

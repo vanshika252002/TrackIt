@@ -14,7 +14,7 @@ function CustomZoom({
   setSelectedLocation,
   weatherInformation,
   setWeatherInformation,
-}: Props) {
+}: Readonly<Props>) {
   const map = useMap();
   const [open, setOpen] = useState(true);
   const zoomControlRef = useRef<HTMLDivElement>(null);
@@ -60,39 +60,38 @@ function CustomZoom({
         title="Earthquake alert"
         className={`${earthquake.alert ? 'opacity-on' : 'opacity-off'}`}
         onClick={() => {
-          earthquake.setAlert(!earthquake.alert),
-            flight.setFlight(false),
-            setWeatherInformation(false);
+          earthquake.setAlert(!earthquake.alert);
+          flight.setFlight(false);
+          setWeatherInformation(false);
           setTriggerApi(true);
         }}
       >
-        <img src={ICONS.earthquakealert} />
+        <img src={ICONS.earthquakealert} alt="earthquake" />
       </button>
       <button
         title="LIVE flight"
         className={`${flight.flight ? 'opacity-on' : 'opacity-off'}`}
         onClick={() => {
-          flight.setFlight(!flight.flight),
-            earthquake.setAlert(false),
-            visibility.setVisible(''),
-            setWeatherInformation(false);
+          flight.setFlight(!flight.flight);
+          earthquake.setAlert(false);
+          visibility.setVisible('');
+          setWeatherInformation(false);
         }}
       >
-        <img src={ICONS.flightLogo} />
+        <img src={ICONS.flightLogo} alt="flight" />
       </button>
       <button
         title="Weather"
         className={`${weatherInformation ? 'opacity-on' : 'opacity-off'}`}
         onClick={() => {
           setVisible('');
-          setWeatherInformation(!weatherInformation),
-            earthquake.setAlert(false),
-            console.log('GONE');
+          setWeatherInformation(!weatherInformation);
+          earthquake.setAlert(false);
           flight.setFlight(false);
           setOpen(true);
         }}
       >
-        <img src={ICONS.cloudy} />
+        <img src={ICONS.cloudy} alt="weather" />
       </button>
       {weatherInformation && open && (
         <div className="knowtheweather">
@@ -106,7 +105,7 @@ function CustomZoom({
           >
             x
           </button>
-          <img src={ICONS.cloudy} />
+          <img src={ICONS.cloudy} alt="weather" />
           <span>
             Tap on any location on the map to see the current weather
             information for that spot!
