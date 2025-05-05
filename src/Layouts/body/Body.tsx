@@ -15,17 +15,17 @@ import { setFlights } from '../../Store/flight';
 import FlyToTarget from './FlightToTarget';
 
 import { useLazyGetWeatherByCoordsQuery } from '../../Services/Api/weather';
-import MiniMapControl from '../../Views/minimapview/MiniMapView';
+import MiniMapControl from '../../Components/minimapview';
 
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import { ICONS } from '../../assets';
 import 'leaflet/dist/leaflet.css';
 import './body.css';
-import Footer from '../../Views/footer/Footer';
+import Footer from '../../Components/footer';
 import 'leaflet-rotatedmarker';
 
 import { useLazyGetEarthquakesQuery } from '../../Services/Api/earthquake';
-import CustomZoom from '../../Views/customZoom/CustomZoom';
+import CustomZoom from '../../Components/customZoom';
 
 import { useLazyGetGeolocationByLatLngQuery } from '../../Services/Api/geolocation';
 import {
@@ -35,11 +35,11 @@ import {
   WeatherData,
   GeolocationData,
 } from './Types/Types';
-import Loading from '../../Views/loading';
-import DraggableWrapper from '../../Views/draggable/Draggable';
+import Loading from '../../Components/loading';
+import DraggableWrapper from '../../Components/draggable/Draggable'
 
 const Earthquake = React.lazy(
-  () => import('../../Views/earthquake/Earthquake')
+  () => import('../../Components/earthquake')
 );
 
 const createFlightIcon = (fillColor: string, size = 38) =>
@@ -137,7 +137,12 @@ function Body({
       triggerEarthquakeQuery({ startTime, endTime });
     }
   }, [triggerApi]);
-
+  useEffect(() => {
+    if (startTime && endTime) {
+      console.log('Triggering earthquake API due to date change');
+      triggerEarthquakeQuery({ startTime, endTime });
+    }
+  }, [ startTime, endTime]);
   useEffect(() => {
     if (clickedLocation) {
       console.log('Clicked at:', clickedLocation);

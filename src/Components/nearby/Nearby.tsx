@@ -28,9 +28,8 @@ function Nearby({
   const FlightDetails = liveflight?.states || null;
 
   const [loading, setLoading] = useState(true);
-  const [askForLocation, setAskForLocation] = useState(true);
 
-  const requestLocation = () => {
+  useEffect(() => {
     if (!navigator.geolocation) {
       setErrorMsg('Geolocation is not supported by your browser.');
       setLoading(false);
@@ -60,7 +59,7 @@ function Nearby({
         setLoading(false);
       }
     );
-  };
+  }, []);
 
   useEffect(() => {
     if (lat !== null && lon !== null) {
@@ -146,19 +145,6 @@ function Nearby({
         </div>
       </div>
 
-      {askForLocation && (
-        <div className="location-prompt">
-          <p>This feature requires your location to find nearby flights.</p>
-          <button
-            onClick={() => {
-              setAskForLocation(false);
-              requestLocation();
-            }}
-          >
-            Allow Location Access
-          </button>
-        </div>
-      )}
       {liveflight?.states === null && (
         <div className="fi-no-results"> Data is not Available right now </div>
       )}

@@ -1,18 +1,18 @@
 import { useState } from 'react';
 
-import SearchBar from '../../Views/searchbar/SearchOptions';
-import Weather from '../../Views/weather/Weather';
-import FlightByRoute from '../../Views/flightbyroute';
-import FlightInformation from '../../Views/flightinformation';
-import Nearby from '../../Views/nearby';
-import Airports from '../../Views/airports';
-import AirportCountryFlights from '../../Views/airportcountryflights';
-import Live from '../../Views/live';
+import SearchBar from '../../Components/searchbar'
+import Weather from '../../Components/weather';
+import FlightByRoute from '../../Components/flightbyroute'
+import FlightInformation from '../../Components/flightinformation';
+import Nearby from '../../Components/nearby';
+import Airports from '../../Components/airports';
+import AirportCountryFlights from '../../Components/airportcountryflights';
+import Live from '../../Components/live';
 
 import { Props } from './Types/types';
 import { ICONS } from '../../assets';
 import './header.css';
-import Confirmation from '../../Views/confirmation';
+import Confirmation from '../../Components/confirmation';
 
 function Header({
   setWeatherInformation,

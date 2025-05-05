@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
-
+import './draggable.css';
 type DraggableWrapperProps = {
   children: ReactNode;
 };
