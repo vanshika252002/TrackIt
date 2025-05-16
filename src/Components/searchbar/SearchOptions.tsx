@@ -1,6 +1,7 @@
 import { SearchbarProps } from './Types/types';
 import './searchoptions.css';
 import { ICONS } from '../../assets';
+import { BUTTON_TEXT, SEARCHBAR_LABELS, WEATHER_LABELS } from '../../Views';
 
 function SearchBar({
   setVisible,
@@ -12,7 +13,7 @@ function SearchBar({
     <div className="searchbar-wrapper">
       <div className="search_shortcuts">
         <div className="search-shortcut-span">
-          <span>SHORTCUTS TO FIND</span>
+          <span>{SEARCHBAR_LABELS.HEADER}</span>
         </div>
         <div className="search-shortcut-btn">
           <button
@@ -20,7 +21,7 @@ function SearchBar({
               setVisible('');
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
@@ -40,7 +41,7 @@ function SearchBar({
           }}
         >
           <img src={ICONS.weather} alt="weather" />
-          <span>Weather</span>
+          <span>{WEATHER_LABELS.TITLE}</span>
         </button>
         <button
           onClick={() => {
@@ -49,7 +50,7 @@ function SearchBar({
           }}
         >
           <img src={ICONS.flightroute} alt="flight by route" />
-          <span>Flight by route</span>
+          <span>{SEARCHBAR_LABELS.FLIGHT_BY_ROUTE}</span>
         </button>
         <button
           onClick={() => {
@@ -58,7 +59,7 @@ function SearchBar({
           }}
         >
           <img src={ICONS.liveairplane} alt="live" />
-          <span>LIVE flight by airplane</span>
+          <span>{SEARCHBAR_LABELS.LIVE_FLIGHT}</span>
         </button>
         <button
           onClick={() => {
@@ -67,7 +68,7 @@ function SearchBar({
           }}
         >
           <img src={ICONS.airports} alt="Airports" />
-          <span>Airports</span>
+          <span>{SEARCHBAR_LABELS.AIRPORTS}</span>
         </button>
         <button
           onClick={() => {
@@ -76,7 +77,7 @@ function SearchBar({
           }}
         >
           <img src={ICONS.nearby} alt="Nearby Flights" />
-          <span>Nearby Flights</span>
+          <span>{SEARCHBAR_LABELS.NEARBY_FLIGHTS}</span>
         </button>
       </button>
     </div>

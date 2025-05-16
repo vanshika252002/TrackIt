@@ -1,4 +1,5 @@
 import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
+import { FLIGHT_LABELS } from '../../Views';
 import { Props, Details } from './Types/types';
 import './searching.css';
 
@@ -22,7 +23,7 @@ function Searching({ chooseOption }: Readonly<Props>) {
           <button onClick={() => setSearchingVisible(false)}>x</button>
         </div>
         <div className="near-by-f2">
-          <span>Flights</span>
+          <span>{FLIGHT_LABELS.TITLE}</span>
         </div>
       </div>
 
@@ -35,7 +36,7 @@ function Searching({ chooseOption }: Readonly<Props>) {
 
             <div className="n1">
               <div className="n2">
-                <span>Icao Code :</span>
+                <span>{FLIGHT_LABELS.ICAO_CODE_LABEL}</span>
               </div>
               <div className="n3">
                 <span>{details[0]}</span>
@@ -43,7 +44,7 @@ function Searching({ chooseOption }: Readonly<Props>) {
             </div>
             <div className="n1">
               <div className="n2">
-                <span>Latitude :</span>
+                <span>{FLIGHT_LABELS.LATITUDE_LABEL}</span>
               </div>
               <div className="n3">
                 <span>{details[5]}</span>
@@ -51,7 +52,7 @@ function Searching({ chooseOption }: Readonly<Props>) {
             </div>
             <div className="n1">
               <div className="n2">
-                <span>Longitude :</span>
+                <span>{FLIGHT_LABELS.LONGITUDE_LABEL}</span>
               </div>
               <div className="n3">
                 <span>{details[6]}</span>
@@ -59,7 +60,7 @@ function Searching({ chooseOption }: Readonly<Props>) {
             </div>
             <div className="n1">
               <div className="n2">
-                <span>Velocity :</span>
+                <span>{FLIGHT_LABELS.VELOCITY}</span>
               </div>
               <div className="n3">
                 <span>{details[9]}</span>

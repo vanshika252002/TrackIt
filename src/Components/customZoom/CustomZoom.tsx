@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { ICONS } from '../../assets';
 import './customZoom.css';
 import { Props } from './Types/types';
+import { BUTTON_TEXT, WEATHER_LABELS } from '../../Views';
 
 function CustomZoom({
   setTriggerApi,
@@ -47,14 +48,14 @@ function CustomZoom({
   return (
     <div className="custom-zoom" ref={zoomControlRef}>
       <button title="Zoom In" className="btn-zoom" onClick={() => map.zoomIn()}>
-        +
+        {WEATHER_LABELS.ZOOM_IN}
       </button>
       <button
         title="Zoom out"
         className="btn-zoom"
         onClick={() => map.zoomOut()}
       >
-        −
+        {WEATHER_LABELS.ZOOM_OUT}
       </button>
       <button
         title="Earthquake alert"
@@ -103,13 +104,10 @@ function CustomZoom({
               setVisible('');
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
           <img src={ICONS.cloudy} alt="weather" />
-          <span>
-            Tap on any location on the map to see the current weather
-            information for that spot!
-          </span>
+          <span>{WEATHER_LABELS.WEATHER_TOOLTIP}</span>
         </div>
       )}
     </div>

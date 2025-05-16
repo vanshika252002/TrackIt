@@ -8,6 +8,7 @@ import { Input } from '../../Components/Common';
 import { Weatherprops } from './Types/types';
 import { ICONS } from '../../assets';
 import './weather.css';
+import { BUTTON_TEXT, WEATHER_LABELS } from '../../Views';
 interface Location {
   formatted: string;
   geometry: {
@@ -85,10 +86,10 @@ function Weather({
           }}
         >
           {' '}
-          <img src={ICONS.arrow} alt="" />
+          <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
         </button>
         <div className="w1">
-          <span>Weather</span>
+          <span>{WEATHER_LABELS.TITLE}</span>
         </div>
         <div className="near-by-f1">
           <button
@@ -98,7 +99,7 @@ function Weather({
               setWeatherInformation(false);
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
@@ -117,13 +118,13 @@ function Weather({
       {isLoading && <Loading />}
 
       {!isLoading && debouncedCity && locations.length === 0 && (
-        <div>Location is not found</div>
+        <div>{WEATHER_LABELS.LOCATION_NOT_FOUND}</div>
       )}
 
       <div className="locations-list">
         {locations.length > 0 && (
           <div>
-            <h3>Select a Location:</h3>{' '}
+            <h3>{WEATHER_LABELS.LOCATION_NOT_FOUND}</h3>{' '}
           </div>
         )}
         <div className="scroll-weather">

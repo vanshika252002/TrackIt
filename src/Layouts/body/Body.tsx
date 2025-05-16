@@ -36,11 +36,10 @@ import {
   GeolocationData,
 } from './Types/Types';
 import Loading from '../../Components/loading';
-import DraggableWrapper from '../../Components/draggable/Draggable'
+import DraggableWrapper from '../../Components/draggable/Draggable';
+import { COLON, FLIGHT_LABELS, WEATHER_LABELS } from '../../Views';
 
-const Earthquake = React.lazy(
-  () => import('../../Components/earthquake')
-);
+const Earthquake = React.lazy(() => import('../../Components/earthquake'));
 
 const createFlightIcon = (fillColor: string, size = 38) =>
   new L.DivIcon({
@@ -142,7 +141,7 @@ function Body({
       console.log('Triggering earthquake API due to date change');
       triggerEarthquakeQuery({ startTime, endTime });
     }
-  }, [ startTime, endTime]);
+  }, [startTime, endTime]);
   useEffect(() => {
     if (clickedLocation) {
       console.log('Clicked at:', clickedLocation);
@@ -209,32 +208,52 @@ function Body({
         (geo?.results[0]?.components as any)?.country ??
         (geo?.results[0]?.components as any)?.body_of_water ??
         geo?.results[0]?.formatted ??
-        'Location yet to be discovered 🌍';
+        WEATHER_LABELS.LOCATION_NOT_DISCOVERED;
 
       return (
         <div className="popup">
           <h2>{location}</h2>
           <br />
           <span>
-            <strong>Weather:</strong> {weather.weather[0].description}
+            <strong>
+              {WEATHER_LABELS.TITLE}
+              {''}
+              {COLON.LABEL}
+            </strong>{' '}
+            {weather.weather[0].description}
           </span>
           <br />
           <span>
-            <strong>Temperature:</strong> {weather.main.temp}°C
+            <strong>
+              {WEATHER_LABELS.TEMPERATURE}
+              {''}
+              {COLON.LABEL}
+            </strong>{' '}
+            {weather.main.temp}°C
           </span>
           <br />
           <span>
-            <strong>Humidity:</strong> {weather.main.humidity}%
+            <strong>
+              {WEATHER_LABELS.HUMIDITY}
+              {''}
+              {COLON.LABEL}
+            </strong>{' '}
+            {weather.main.humidity}%
           </span>
           <br />
           <span>
-            <strong>Wind Speed:</strong> {weather.wind.speed} m/s
+            <strong>
+              {WEATHER_LABELS.WIND_SPEED}
+              {''}
+              {COLON.LABEL}
+            </strong>{' '}
+            {weather.wind.speed} m/s
           </span>
         </div>
       );
     }
 
-    return <span>No data available.</span>;
+    return <span>{WEATHER_LABELS.DATA_NOT_AVAILABLE}</span>;
   }
 
   return (
@@ -308,10 +327,11 @@ function Body({
                     }}
                   >
                     <Tooltip>
-                      <strong>Origin:</strong>
+                      <strong>{FLIGHT_LABELS.FLIGHT_ORIGIN}</strong>
                       {details[2]}
                       <br />
-                      <strong>ICAO Code:</strong> {details[0]}
+                      <strong>{FLIGHT_LABELS.ICAO_CODE_LABEL}</strong>{' '}
+                      {details[0]}
                       <br />
                     </Tooltip>
                   </Marker>
@@ -339,8 +359,10 @@ function Body({
             }}
           >
             <Tooltip permanent>
-              <strong>Origin:</strong> {selectedLocation.origin} <br />
-              <strong>ICAO Code:</strong> {selectedLocation.id} <br />
+              <strong>{FLIGHT_LABELS.FLIGHT_ORIGIN}</strong>{' '}
+              {selectedLocation.origin} <br />
+              <strong>{FLIGHT_LABELS.ICAO_CODE_LABEL}</strong>{' '}
+              {selectedLocation.id} <br />
             </Tooltip>
           </Marker>
         )}
@@ -370,7 +392,10 @@ function Body({
                       <div className="earthquake-tooltip">
                         <strong>{quake.properties.place}</strong>
 
-                        <p>Magnitude: {quake.properties.mag}</p>
+                        <p>
+                          {FLIGHT_LABELS.MAGNITUDE}
+                          {quake.properties.mag}
+                        </p>
                       </div>
                     </Tooltip>
                   </Marker>
@@ -394,7 +419,9 @@ function Body({
                   <div className="earthquake-tooltip">
                     <strong>{clickedLocationEarthquake[2]}</strong>
 
-                    <p>Magnitude: {clickedLocationEarthquake[3]}</p>
+                    <p>
+                      {FLIGHT_LABELS.MAGNITUDE} {clickedLocationEarthquake[3]}
+                    </p>
                   </div>
                 </Tooltip>
               </Marker>

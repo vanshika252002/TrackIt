@@ -2,6 +2,7 @@ import { useGetGeolocationByCoordsQuery } from '../../Services/Api/geolocation';
 import Loading from '../loading/Loading';
 import { ICONS } from '../../assets';
 import { Data, Airport } from './Types/types';
+import { FLIGHT_LABELS, BUTTON_TEXT } from '../../Views';
 import './airports.css';
 
 function Airports({
@@ -28,14 +29,14 @@ function Airports({
               setVisible('searchbar');
             }}
           >
-            <img src={ICONS.arrow} alt="Back" />
+            <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
           </button>
         </div>
         <div className="airport-f2">
-          <span>Airport By Country</span>
+          <span>{FLIGHT_LABELS.AIRPORT_BY_COUNTRY}</span>
         </div>
         <div className="near-by-f1">
-          <button onClick={() => setVisible('')}>x</button>
+          <button onClick={() => setVisible('')}>{BUTTON_TEXT.CLOSE}</button>
         </div>
       </div>
       <div className="airport-list-wrapper">

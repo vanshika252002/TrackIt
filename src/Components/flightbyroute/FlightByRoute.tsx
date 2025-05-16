@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { RouteProps } from './Types/types';
 import { ICONS } from '../../assets';
 import './flightbyroute.css';
+import { BUTTON_TEXT, FLIGHT_LABELS } from '../../Views';
 
 function FlightByRoute({
   setWeatherInformation,
@@ -34,23 +35,22 @@ function FlightByRoute({
               setVisible('searchbar');
             }}
           >
-            <img src={ICONS.arrow} alt="Back" />
+            <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
           </button>
         </div>
         <div className="f2">
-          <span>Flight by route</span>
+          <span>{FLIGHT_LABELS.FLIGHT_BY_ROUTE}</span>
         </div>
         <div className="near-by-f1">
-          <button onClick={() => setVisible('')}>x</button>
+          <button onClick={() => setVisible('')}>{BUTTON_TEXT.CLOSE}</button>
         </div>
       </div>
       <div className="flight-by-route">
         <div className="flight-by-route-origin">
-          <span>Origin</span>
+          <span>{FLIGHT_LABELS.ORIGIN}</span>
         </div>
       </div>
       <div className="flight-by-route-search">
-        {/* <img src={ICONS.flightbyroute1}/> */}
         <input
           type="text"
           value={originInput}
@@ -60,7 +60,7 @@ function FlightByRoute({
       </div>
       <div className="flight-by-route-search">
         <button onClick={handleSearch} disabled={!originInput.trim()}>
-          Search
+          {FLIGHT_LABELS.SEARCH}
         </button>
       </div>
     </div>

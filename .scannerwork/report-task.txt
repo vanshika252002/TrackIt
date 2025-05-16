@@ -2,5 +2,5 @@ projectKey=flightradar
 serverUrl=http://localhost:9000
 serverVersion=25.3.0.104237
 dashboardUrl=http://localhost:9000/dashboard?id=flightradar
-ceTaskId=d4aaf332-d1da-43f4-aa8f-4c7725fc16a4
-ceTaskUrl=http://localhost:9000/api/ce/task?id=d4aaf332-d1da-43f4-aa8f-4c7725fc16a4
+ceTaskId=447df3bf-3f63-4255-91e3-e8bbe0f60905
+ceTaskUrl=http://localhost:9000/api/ce/task?id=447df3bf-3f63-4255-91e3-e8bbe0f60905

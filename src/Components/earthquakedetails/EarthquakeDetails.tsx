@@ -1,5 +1,6 @@
 import { Earthquake } from './Types/types';
 import './EarthquakeDetails.css';
+import { EARTHQUAKE_UI } from '../../Views';
 
 function EarthquakeDetails({
   place,
@@ -16,7 +17,7 @@ function EarthquakeDetails({
       <div className="details-in-body">
         <div className="time-detail">
           <div className="time">
-            <h5>Time</h5>
+            <h5>{EARTHQUAKE_UI.TIME}</h5>
           </div>
           <div className="time-content">
             <h5>{time}</h5>
@@ -24,7 +25,7 @@ function EarthquakeDetails({
         </div>
         <div className="location-detail">
           <div className="location">
-            <h5>Location</h5>
+            <h5>{EARTHQUAKE_UI.LOCATION}</h5>
           </div>
           <div className="location-content">
             <h5>{`${lat} ${lon}`}</h5>
@@ -32,7 +33,7 @@ function EarthquakeDetails({
         </div>
         <div className="depth-detail">
           <div className="depth">
-            <h5>Depth</h5>
+            <h5>{EARTHQUAKE_UI.DEPTH}</h5>
           </div>
           <div className="depth-content">
             <h5>{depth}</h5>

@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { updateAuthTokenRedux } from '../../Store/Common';
 import { auth } from '../../Components/firebase';
+import { CONFIRMATION_LABELS } from '../../Views';
 import './confirmation.css';
 import { ICONS } from '../../assets';
 
@@ -10,15 +11,14 @@ interface Props {
 }
 function Confirmation({ setLogout }: Readonly<Props>) {
   const dispatch = useDispatch();
-  console.log('confirmation');
   return (
     <div className="place-order-container">
       <div className="place-order">
         <img src={ICONS.powerbtn} alt="powerbtn" />
-        <h2> Sign out </h2>
+        <h2>{CONFIRMATION_LABELS.SIGN_OUT_TITLE}</h2>
         <span className="place-order-span">
-          Signing out will end your session <br />
-          Are you sure you want to sign out?
+          {CONFIRMATION_LABELS.SIGN_OUT_DESCRIPTION_LINE1} <br />
+          {CONFIRMATION_LABELS.SIGN_OUT_DESCRIPTION_LINE2}
         </span>
         <div className="confirm">
           <button
@@ -28,10 +28,10 @@ function Confirmation({ setLogout }: Readonly<Props>) {
             }}
             className="place-order-btn1"
           >
-            Confirm
+            {CONFIRMATION_LABELS.CONFIRM_BUTTON}
           </button>
           <button className="place-order-btn2" onClick={() => setLogout(false)}>
-            Cancel
+            {CONFIRMATION_LABELS.CANCEL_BUTTON}
           </button>
         </div>
         <br />

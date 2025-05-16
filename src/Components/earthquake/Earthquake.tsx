@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './earthquake.css';
 
 import { EarthquakeProps, EarthquakeFeature } from './Types/types';
+import { EARTHQUAKE_UI } from '../../Views';
 import Loading from '../loading';
 
 const CustomDatePickerInput = React.forwardRef<
@@ -95,10 +96,10 @@ function Earthquake({
     if (debouncedStartTime && debouncedEndTime) {
       const start = new Date(debouncedStartTime);
       const end = new Date(debouncedEndTime);
-      console.log('tell me ', start, end, start > end);
+
       if (start > end) {
         setClickedLocationEarthquake(null);
-        setDateError('Start Time should be before End Time.');
+        setDateError(EARTHQUAKE_UI.ERROR_INVALID_DATE_RANGE);
       } else {
         setDateError('');
         trigger({ startTime: debouncedStartTime, endTime: debouncedEndTime });
@@ -133,7 +134,7 @@ function Earthquake({
           x
         </button>
         <h2>
-          <strong>Earthquake</strong>
+          <strong>{EARTHQUAKE_UI.TITLE}</strong>
         </h2>
       </div>
 
@@ -141,7 +142,7 @@ function Earthquake({
 
       <div className="earthquake-timer">
         <div className="start">
-          <h3>Start Date</h3>
+          <h3>{EARTHQUAKE_UI.START_DATE_LABEL}</h3>
           <DatePicker
             selected={formattedStartTime}
             onChange={(date: Date | null) => {
@@ -176,7 +177,7 @@ function Earthquake({
           />
         </div>
         <div className="end">
-          <h3>End Date</h3>
+          <h3>{EARTHQUAKE_UI.END_DATE_LABEL}</h3>
           <DatePicker
             selected={formattedEndTime}
             onChange={(date: Date | null) => {
@@ -219,7 +220,7 @@ function Earthquake({
 
         {error && (
           <div className="no-earthquakes">
-            <h4>Error fetching earthquake data</h4>
+            <h4>{EARTHQUAKE_UI.ERROR_FETCHING}</h4>
           </div>
         )}
 
@@ -228,7 +229,7 @@ function Earthquake({
           !isFetching &&
           !error && (
             <div className="no-earthquakes">
-              <h4>No Earthquakes Found in the Selected Date Range</h4>
+              <h4>{EARTHQUAKE_UI.NO_EARTHQUAKE_FOUND}</h4>
             </div>
           )}
 
@@ -262,7 +263,7 @@ function Earthquake({
                 }}
               >
                 <div className="earthquake-magnitude">
-                  <span>Magnitude</span>
+                  <span>{EARTHQUAKE_UI.MAGNITUDE_LABEL}</span>
                   <span>{item.properties.mag}</span>
                 </div>
                 <div className="earthquake-properties">

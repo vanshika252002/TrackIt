@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import SearchBar from '../../Components/searchbar'
+import SearchBar from '../../Components/searchbar';
 import Weather from '../../Components/weather';
-import FlightByRoute from '../../Components/flightbyroute'
+import FlightByRoute from '../../Components/flightbyroute';
 import FlightInformation from '../../Components/flightinformation';
 import Nearby from '../../Components/nearby';
 import Airports from '../../Components/airports';
@@ -13,6 +13,7 @@ import { Props } from './Types/types';
 import { ICONS } from '../../assets';
 import './header.css';
 import Confirmation from '../../Components/confirmation';
+import { SEARCHBAR_LABELS } from '../../Views';
 
 function Header({
   setWeatherInformation,
@@ -141,7 +142,7 @@ function Header({
           )}
         </div>
         <div className="h4">
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>{SEARCHBAR_LABELS.LOGOUT}</button>
         </div>
         {logout && <Confirmation setLogout={setLogout} />}
       </div>

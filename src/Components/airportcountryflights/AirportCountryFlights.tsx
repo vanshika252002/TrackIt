@@ -3,6 +3,7 @@ import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import Loading from '../loading/Loading';
 
 import { AirportCountryFlightsProps, Details } from './Types/types';
+import { BUTTON_TEXT, FLIGHT_LABELS } from '../../Views/index';
 import { ICONS } from '../../assets';
 import './airportCountryFlights.css';
 
@@ -49,11 +50,11 @@ function AirportCountryFlights({
               setClickedLocation(null);
             }}
           >
-            <img src={ICONS.arrow} alt="Back" />
+            <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
           </button>
         </div>
         <div className="country-flight-f2">
-          <span>Country Flights</span>
+          <span>{FLIGHT_LABELS.COUNTRY_FLIGHTS}</span>
         </div>
         <div className="near-by-f1">
           <button
@@ -64,7 +65,7 @@ function AirportCountryFlights({
               setClickedLocation(null);
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
@@ -75,14 +76,14 @@ function AirportCountryFlights({
       )}
       {flightData?.states == null && (
         <div className="near-by-lit-wrappers">
-          <p>Data is not Available right now </p>{' '}
+          <p>{FLIGHT_LABELS.DATA_NOT_AVAILABLE} </p>{' '}
         </div>
       )}
 
       {!isLoading && filteredFlights?.length === 0 && (
         <div className="no-flights-found">
           <p>
-            No flights found for <strong>{origin}</strong>.
+            {FLIGHT_LABELS.NO_FLIGHT_FOUND} <strong>{origin}</strong>.
           </p>
         </div>
       )}
@@ -117,7 +118,9 @@ function AirportCountryFlights({
                     <img src={ICONS.airports} alt="airport icon" />
                   </div>
                   <div className="formatted">
-                    <span>ICAO Code: {icaoCode}</span>
+                    <span>
+                      {FLIGHT_LABELS.ICAO_CODE_LABEL} {icaoCode}
+                    </span>
                   </div>
                   <div
                     className={`accordion-toggle-symbol ${isExpanded ? 'open' : ''}`}
@@ -155,21 +158,25 @@ function AirportCountryFlights({
                           }}
                         >
                           <img src={ICONS.showonmap} alt="showOnMap" />
-                          <span>Show on Map</span>
+                          <span>{FLIGHT_LABELS.SHOW_ON_MAP}</span>
                         </button>
                       </div>
                       <div className="data-flight">
                         <p>
-                          <strong>ICAO Code:</strong> {icaoCode}
+                          <strong>{FLIGHT_LABELS.ICAO_CODE_LABEL}</strong>
+                          {icaoCode}
                         </p>
                         <p>
-                          <strong>Country:</strong> {flightCountry}
+                          <strong>{FLIGHT_LABELS.COUNTRY_LABEL}</strong>
+                          {flightCountry}
                         </p>
                         <p>
-                          <strong>Latitude:</strong> {latitude}
+                          <strong>{FLIGHT_LABELS.LATITUDE_LABEL}</strong>
+                          {latitude}
                         </p>
                         <p>
-                          <strong>Longitude:</strong> {longitude}
+                          <strong>{FLIGHT_LABELS.LONGITUDE_LABEL}</strong>
+                          {longitude}
                         </p>
                       </div>
                     </div>

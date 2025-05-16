@@ -8,6 +8,7 @@ import { Props } from '../live/Types/types';
 import { getDistanceFromLatLonInKm } from './Util/Util';
 import { ICONS } from '../../assets';
 import './nearby.css';
+import { BUTTON_TEXT, FLIGHT_LABELS, MESSAGES, TITLE } from '../../Views';
 
 function Nearby({
   selectedLocation,
@@ -31,7 +32,7 @@ function Nearby({
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setErrorMsg('Geolocation is not supported by your browser.');
+      setErrorMsg(MESSAGES.GEOLOCATION_NOT_FOUND);
       setLoading(false);
       return;
     }
@@ -45,15 +46,13 @@ function Nearby({
       (error) => {
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            setErrorMsg(
-              'Unable to access your location. Please enable location permission.'
-            );
+            setErrorMsg(MESSAGES.ENABLE_LOCATION_PERMISSION);
             break;
           case error.POSITION_UNAVAILABLE:
-            setErrorMsg('Location information is unavailable.');
+            setErrorMsg(MESSAGES.LOCATION_NOT_AVAILABLE);
             break;
           case error.TIMEOUT:
-            setErrorMsg('The request to get your location timed out.');
+            setErrorMsg(MESSAGES.REQUEST_TIMEOUT);
             break;
         }
         setLoading(false);
@@ -98,7 +97,7 @@ function Nearby({
                 setClickedLocation(null);
               }}
             >
-              x
+              {BUTTON_TEXT.CLOSE}
             </button>
           </div>
           <div className="near-by-f2">
@@ -106,7 +105,7 @@ function Nearby({
           </div>
         </div>
 
-        {loading && <p>Getting your location...</p>}
+        {loading && <p>{FLIGHT_LABELS.GETTING_LOCATION}</p>}
       </div>
     );
   }
@@ -124,11 +123,11 @@ function Nearby({
               setClickedLocation(null);
             }}
           >
-            <img src={ICONS.arrow} alt="" />
+            <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
           </button>
         </div>
         <div className="near-by-f2">
-          <span>Nearby Flights</span>
+          <span>{TITLE.NEARBY_FLIGHT}</span>
         </div>
 
         <div className="near-by-f1">
@@ -140,17 +139,17 @@ function Nearby({
               setSelectedLocation(null);
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
 
       {liveflight?.states === null && (
-        <div className="fi-no-results"> Data is not Available right now </div>
+        <div className="fi-no-results">{FLIGHT_LABELS.DATA_NOT_AVAILABLE}</div>
       )}
       {!flightLoading && nearbyFlights.length === 0 && lat && lon && (
         <div className="near-by-lit-wrapper">
-          <p>No nearby flights found within 500 km.</p>
+          <p>{FLIGHT_LABELS.NEARBY_FLIGHTS}</p>
         </div>
       )}
       {nearbyFlights.length > 0 && (
@@ -168,7 +167,7 @@ function Nearby({
 
               <div className="n1">
                 <div className="n2">
-                  <span>ICAO Code</span>
+                  <span>{TITLE.ICAO_CODE}</span>
                 </div>
                 <div className="n3">
                   <span>{details[0]}</span>
@@ -176,7 +175,7 @@ function Nearby({
               </div>
               <div className="n1">
                 <div className="n2">
-                  <span>Latitude</span>
+                  <span>{TITLE.LATITUDE}</span>
                 </div>
                 <div className="n3">
                   <span>{details[6]}</span>
@@ -184,7 +183,7 @@ function Nearby({
               </div>
               <div className="n1">
                 <div className="n2">
-                  <span>Longitude</span>
+                  <span>{TITLE.LONGITUDE}</span>
                 </div>
                 <div className="n3">
                   <span>{details[5]}</span>
@@ -192,7 +191,7 @@ function Nearby({
               </div>
               <div className="n1">
                 <div className="n2">
-                  <span>Velocity</span>
+                  <span>{TITLE.VELOCITY}</span>
                 </div>
                 <div className="n3">
                   <span>{details[9]}</span>
@@ -200,7 +199,7 @@ function Nearby({
               </div>
               <div className="n1">
                 <div className="n2">
-                  <span className="n4">Distance (km):</span>
+                  <span className="n4">{FLIGHT_LABELS.DISTANCE}</span>
                 </div>
                 <div className="n3">
                   <span className="n4">{distance.toFixed(2)}</span>
@@ -230,7 +229,7 @@ function Nearby({
                   }}
                 >
                   <img src={ICONS.showonmap} alt="" />
-                  <span>Show on Map</span>
+                  <span>{FLIGHT_LABELS.SHOW_ON_MAP}</span>
                 </button>
               </div>
             </div>

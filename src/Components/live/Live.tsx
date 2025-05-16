@@ -4,6 +4,7 @@ import { useGetAllFlightsQuery } from '../../Services/Api/liveflight';
 import { FlightData, Props } from './Types/types';
 import { ICONS } from '../../assets';
 import './live.css';
+import { BUTTON_TEXT, FLIGHT_LABELS } from '../../Views';
 
 function Live({
   setWeatherInformation,
@@ -85,7 +86,7 @@ function Live({
           </button>
         </div>
         <div className="airport-f2-l1">
-          <span>Live Flights</span>
+          <span>{FLIGHT_LABELS.LIVE_FLIGHTS}</span>
         </div>
         <div className="near-by-f1">
           <button
@@ -96,14 +97,14 @@ function Live({
               setFlight(false);
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
 
       {LiveFlights?.states == null && (
         <div className="near-by-lit-wrappers">
-          <p>Data is not Available right now </p>
+          <p>{FLIGHT_LABELS.DATA_NOT_AVAILABLE} </p>
         </div>
       )}
 
@@ -135,7 +136,7 @@ function Live({
                       <div className="acc-content-l1">
                         {isExpanded && (lat == null || lon == null) && (
                           <div className="accordion-content-l1">
-                            <h2>No Live Flight</h2>
+                            <h2>{FLIGHT_LABELS.NO_LIVE_FLIGHT}</h2>
                           </div>
                         )}
                         {isExpanded && lat != null && lon != null && (
@@ -164,21 +165,24 @@ function Live({
                                 }}
                               >
                                 <img src={ICONS.showonmap} alt="" />
-                                <span>Show on Map</span>
+                                <span>{FLIGHT_LABELS.SHOW_ON_MAP}</span>
                               </button>
                             </div>
 
                             <p>
-                              <strong>ICAO Code:</strong> {icao}
+                              <strong>{FLIGHT_LABELS.ICAO_CODE_LABEL}</strong>
+                              {icao}
                             </p>
                             <p>
-                              <strong>Altitude:</strong> {alt}
+                              <strong>{FLIGHT_LABELS.ALTITUDE}</strong> {alt}
                             </p>
                             <p>
-                              <strong>Longitude:</strong> {lon}
+                              <strong>{FLIGHT_LABELS.LONGITUDE_LABEL}</strong>
+                              {lon}
                             </p>
                             <p>
-                              <strong>Latitude:</strong> {lat}
+                              <strong>{FLIGHT_LABELS.LATITUDE_LABEL}</strong>
+                              {lat}
                             </p>
                           </div>
                         )}

@@ -1,6 +1,7 @@
 import { FooterProps } from './Types/types';
 import { ICONS } from '../../assets';
 import './footer.css';
+import { EARTHQUAKE_UI } from '../../Views';
 
 function Footer({
   setAlert,
@@ -33,7 +34,7 @@ function Footer({
           }}
         >
           <img src={ICONS.earthquake} alt="" />
-          <span>Earthquake</span>
+          <span>{EARTHQUAKE_UI.TITLE}</span>
         </button>
       </button>
     </div>

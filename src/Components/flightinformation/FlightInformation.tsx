@@ -4,6 +4,7 @@ import Loading from '../loading/Loading';
 import { FlightInformationProps, FlightDetail } from './Types/types';
 import { ICONS } from '../../assets';
 import './flightInformation.css';
+import { BUTTON_TEXT, FLIGHT_LABELS, TITLE } from '../../Views';
 
 function FlightInformation({
   selectedLocation,
@@ -42,8 +43,6 @@ function FlightInformation({
 
   const selectedFlightId = selectedLocation?.id ?? null;
 
-  console.log('filtered flights', filteredFlights);
-
   return (
     <div className="flightInformation-wrapper">
       <div className="flightInformation-header">
@@ -57,7 +56,7 @@ function FlightInformation({
             }}
             aria-label="Close Flight Information"
           >
-            <img src={ICONS.arrow} alt="" />
+            <img src={ICONS.arrow} alt={BUTTON_TEXT.BACK} />
           </button>
         </div>
         <div className="fi2">
@@ -72,7 +71,7 @@ function FlightInformation({
               setClickedLocation(null);
             }}
           >
-            x
+            {BUTTON_TEXT.CLOSE}
           </button>
         </div>
       </div>
@@ -81,13 +80,11 @@ function FlightInformation({
       {liveflight?.states != null &&
         filteredFlights.length === 0 &&
         !isLoading && (
-          <div className="fi-no-results">
-            No flights found for the specified origin.
-          </div>
+          <div className="fi-no-results">{FLIGHT_LABELS.NO_FLIGHT}</div>
         )}
       {liveflight?.states == null && (
         <div className="near-by-lit-wrappers">
-          <p>Data is not Available right now </p>
+          <p>{FLIGHT_LABELS.DATA_NOT_AVAILABLE} </p>
         </div>
       )}
       {filteredFlights.length > 0 && (
@@ -129,14 +126,14 @@ function FlightInformation({
                   }}
                 >
                   <img src={ICONS.showonmap} alt="" />
-                  <span>Show on Map</span>
+                  <span>{FLIGHT_LABELS.SHOW_ON_MAP}</span>
                 </button>
               </div>
 
               <div className="fly">
                 <div className="flightInformation-origin">
                   <div className="fi-o1">
-                    <span>Icao24 Code</span>
+                    <span>{TITLE.ICAO_CODE}</span>
                   </div>
                   <div className="fi-o2">
                     <span>{flight.icao24}</span>
@@ -144,7 +141,7 @@ function FlightInformation({
                 </div>
                 <div className="flightInformation-origin">
                   <div className="fi-o1">
-                    <span>Latitude</span>
+                    <span>{TITLE.LATITUDE}</span>
                   </div>
                   <div className="fi-o2">
                     <span>{flight.latitude.toFixed(2)}</span>
@@ -152,7 +149,7 @@ function FlightInformation({
                 </div>
                 <div className="flightInformation-origin">
                   <div className="fi-o1">
-                    <span>Longitude</span>
+                    <span>{TITLE.LONGITUDE}</span>
                   </div>
                   <div className="fi-o2">
                     <span>{flight.longitude.toFixed(2)}</span>
@@ -160,7 +157,7 @@ function FlightInformation({
                 </div>
                 <div className="flightInformation-origin">
                   <div className="fi-o1">
-                    <span>Velocity</span>
+                    <span>{TITLE.VELOCITY}</span>
                   </div>
                   <div className="fi-o2">
                     <span>{flight.velocity} m/s</span>

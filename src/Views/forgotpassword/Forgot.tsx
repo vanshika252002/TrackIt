@@ -9,6 +9,7 @@ import { db, auth } from '../../Components/firebase';
 import { Button, Input } from '../../Components/Common';
 import 'react-toastify/dist/ReactToastify.css';
 import './forgot.css';
+import { AUTH_MESSAGES, MESSAGES } from '..';
 import { ICONS } from '../../assets';
 
 function Forgot() {
@@ -20,15 +21,14 @@ function Forgot() {
       const q = query(usersRef, where('email', '==', email));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
-        toast.error('Email does not exist');
+        toast.error(MESSAGES.EMAIL);
         return;
       }
-      const data = await sendPasswordResetEmail(auth, email.toLowerCase());
-      console.log('data of the sendpassword email is', data);
-      toast.success('password reset link sent to your email');
+      await sendPasswordResetEmail(auth, email.toLowerCase());
+      toast.success(MESSAGES.PASSWORD);
     } catch (error: any) {
       if (error.code === 'auth/user-not-found') {
-        toast.error('no account found with this email', {
+        toast.error(MESSAGES.NO_ACCOUNT, {
           position: 'top-right',
         });
       }
@@ -42,13 +42,10 @@ function Forgot() {
       </div>
       <div className="forgot-container">
         <div className="forgot-form">
-          <h2>Reset your Password</h2>
+          <h2>{AUTH_MESSAGES.PASSWORD_RESET}</h2>
         </div>
         <div className="forgot-label">
-          <span>
-            Enter your user account's verified email address and we will send
-            you a password reset link.
-          </span>
+          <span>{AUTH_MESSAGES.RESET_PASSWORD_INSTRUCTION}</span>
         </div>
         <div className="forgot-input">
           <Input
